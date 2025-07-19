@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-color: #1a1a1a;
+  --text-color: #ffffff;
+  --secondary-color: #2d2d2d;
+  --accent-color: #c8a97e;
+  --barber-primary: #1a1a1a;
+  --barber-secondary: #c8a97e;
+  --barber-dark: #000000;
+}
+
+/* Estilos de alto contraste */
+.high-contrast body {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}
+
+.high-contrast .bg-barber-primary {
+  background-color: var(--bg-color) !important;
+}
+
+.high-contrast .bg-barber-secondary {
+  background-color: var(--secondary-color) !important;
+}
+
+.high-contrast .text-barber-secondary {
+  color: var(--accent-color) !important;
+}
+
+.high-contrast .border-barber-secondary {
+  border-color: var(--accent-color) !important;
+}
+
+.high-contrast button {
+  background-color: var(--secondary-color) !important;
+  color: var(--bg-color) !important;
+  border: 2px solid var(--text-color) !important;
+}
+
+.high-contrast a {
+  color: var(--accent-color) !important;
+  text-decoration: underline !important;
+}
+
+.high-contrast .card {
+  background-color: #333 !important;
+  border: 2px solid var(--accent-color) !important;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  transition: transform 0.5s ease;
+}
+
+.image-container:hover img {
+  transform: scale(1.05);
+}
+
+.logo-3d-container {
+  width: 100px;
+  height: 100px;
+}
+
+/* Acessibilidade - foco visível */
+*:focus {
+  outline: 3px solid #c8a97e !important;
+  outline-offset: 3px;
+}
+
+.high-contrast *:focus {
+  outline: 3px solid var(--accent-color) !important;
+}
+
+/* Importar animações */
+@import './animations.css';
