@@ -194,14 +194,17 @@ export default function Contact() {
         {/* Mapa */}
         <div className="mt-16">
           <h3 className="text-xl font-bold mb-6 text-center text-barber-primary">Nossa Localização</h3>
-          <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              <p className="text-gray-600">Mapa interativo será carregado aqui</p>
-              <p className="text-sm text-gray-500 mt-2">Rua das Barbearias, 123 - Centro, São Paulo</p>
-            </div>
+          <div className="w-full h-64 rounded-lg overflow-hidden shadow-lg">
+            <iframe
+              src="https://www.google.com/maps?q=Av.+Exemplo,+1000,+São+Paulo,+SP&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="BarberElite Location"
+            ></iframe>
           </div>
         </div>
       </div>

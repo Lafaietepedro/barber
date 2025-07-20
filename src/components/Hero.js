@@ -1,8 +1,17 @@
 export default function Hero() {
   return (
     <section id="inicio" className="relative bg-barber-primary text-white">
-      <div className="absolute inset-0 bg-gradient-to-r from-barber-dark to-transparent opacity-90"></div>
-      <div className="container mx-auto px-4 py-24 md:py-32 relative z-10 flex flex-col items-center md:items-start">
+      {/* Background image with gradient overlay */}
+      <div className="absolute inset-0">
+        <img
+          src="/media/clippers-trim-a-mans-beard.jpg"
+          alt="Barber trims a man's beard with clippers"
+          className="w-full h-full object-cover object-center absolute inset-0 z-0"
+          style={{ filter: 'brightness(0.6)' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-barber-dark to-transparent opacity-90 z-10"></div>
+      </div>
+      <div className="container mx-auto px-4 py-24 md:py-32 relative z-20 flex flex-col items-center md:items-start">
         <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 text-center md:text-left opacity-0 animate-fade-in">
           Estilo e Precisão<br />
           <span className="text-barber-secondary">em Cada Corte</span>
