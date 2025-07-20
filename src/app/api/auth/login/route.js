@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 // Simple admin credentials (in production, use environment variables and proper hashing)
 const ADMIN_CREDENTIALS = {
   username: 'admin',
-  password: 'barber123'
+  password: 'barberchefe123'
 };
 
 export async function POST(request) {

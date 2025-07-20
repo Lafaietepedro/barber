@@ -67,7 +67,7 @@ export default function Booking() {
         <h2 className="text-3xl font-serif font-bold mb-2 text-center">
           Faça seu <span className="text-barber-secondary">Agendamento</span>
         </h2>
-        <p className="text-gray-300 text-center mb-12 max-w-2xl mx-auto">
+        <p className="font-sans text-gray-300 text-center mb-12 max-w-2xl mx-auto">
           Escolha o serviço, data e horário de sua preferência e garanta seu atendimento premium.
         </p>
 

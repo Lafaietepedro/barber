@@ -41,15 +41,15 @@ export default function Header() {
 
   return (
     <header className="bg-barber-primary text-white sticky top-0 z-50 shadow-md">
-      <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-        <div className="flex items-center mb-4 md:mb-0">
-          <div className="logo-3d-container mr-3 w-16 h-16">
+      <div className="container mx-auto px-4 py-0 flex flex-col md:flex-row justify-between items-center min-h-0">
+        <div className="flex items-center mb-2 md:mb-0">
+          <div className="logo-3d-container mr-2 w-10 h-10">
             <Logo3D />
           </div>
-          <h1 className="text-2xl font-serif font-bold">Barber<span className="text-barber-secondary">Elite</span></h1>
+          <h1 className="text-xl font-serif font-bold">Barber<span className="text-barber-secondary">Elite</span></h1>
         </div>
 
-        <nav className="flex flex-col md:flex-row items-center space-y-3 md:space-y-0 md:space-x-6">
+        <nav className="font-sans flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
           <a href="#inicio" className="hover:text-barber-secondary transition-colors duration-300" tabIndex="0">Início</a>
           <a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex="0">Serviços</a>
           <a href="#galeria" className="hover:text-barber-secondary transition-colors duration-300" tabIndex="0">Galeria</a>

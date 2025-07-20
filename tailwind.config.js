@@ -10,6 +10,10 @@ module.exports = {
         'barber-secondary': 'var(--barber-secondary)',
         'barber-dark': 'var(--barber-dark)',
       },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['Montserrat', 'ui-serif', 'Georgia', 'serif'],
+      },
     },
   },
   plugins: [],

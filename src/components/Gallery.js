@@ -16,7 +16,7 @@ export default function Gallery() {
         <h2 className="text-3xl font-serif font-bold mb-2 text-center">
           Nossa <span className="text-barber-secondary">Galeria</span>
         </h2>
-        <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+        <p className="font-sans text-gray-600 text-center mb-12 max-w-2xl mx-auto">
           Conheça alguns dos nossos trabalhos e veja a qualidade dos nossos serviços.
         </p>
 
@@ -44,15 +44,15 @@ export default function Gallery() {
               
               <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
                 <div className="text-white text-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <h3 className="text-xl font-bold mb-2">{image.title}</h3>
-                  <p className="text-sm">{image.description}</p>
+                  <h3 className="font-serif text-xl font-bold mb-2">{image.title}</h3>
+                  <p className="font-sans text-sm">{image.description}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 font-sans">
           <button className="bg-barber-primary text-white px-8 py-3 rounded-md font-medium hover:bg-opacity-90 transition-all duration-300" tabIndex="0">
             Ver Mais Trabalhos
           </button>

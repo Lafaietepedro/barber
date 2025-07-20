@@ -1,12 +1,14 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
-import Gallery from '@/components/Gallery';
-import Booking from '@/components/Booking';
 import Appointments from '@/components/Appointments';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
+import { Suspense, lazy } from 'react';
+
+const Gallery = lazy(() => import('@/components/Gallery'));
+const Booking = lazy(() => import('@/components/Booking'));
 
 export default function Home() {
   return (
@@ -14,8 +16,12 @@ export default function Home() {
       <Header />
       <Hero />
       <Services />
-      <Gallery />
-      <Booking />
+      <Suspense fallback={<div className="text-center py-12">Carregando galeria...</div>}>
+        <Gallery />
+      </Suspense>
+      <Suspense fallback={<div className="text-center py-12">Carregando agendamento...</div>}>
+        <Booking />
+      </Suspense>
       <Appointments />
       <Contact />
       <Footer />

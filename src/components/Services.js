@@ -5,7 +5,7 @@ export default function Services() {
         <h2 className="text-3xl font-serif font-bold mb-2 text-center">
           Nossos <span className="text-barber-secondary">Serviços</span>
         </h2>
-        <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+        <p className="font-sans text-gray-600 text-center mb-12 max-w-2xl mx-auto">
           Oferecemos uma variedade de serviços premium para atender às suas necessidades de estilo e cuidados pessoais.
         </p>
 
@@ -16,9 +16,9 @@ export default function Services() {
               <img src="/media/barber-inspects-his-work-of-a-clean-haircut.jpg" alt="Corte de Cabelo" className="w-full h-full object-cover" />
             </div>
             <div className="p-6">
-              <h3 className="text-xl font-bold mb-2">Corte de Cabelo</h3>
-              <p className="text-gray-600 mb-4">Corte tradicional com acabamento perfeito e atenção aos detalhes.</p>
-              <div className="flex justify-between items-center">
+              <h3 className="font-serif text-xl font-bold mb-2">Corte de Cabelo</h3>
+              <p className="font-sans text-gray-600 mb-4">Corte tradicional com acabamento perfeito e atenção aos detalhes.</p>
+              <div className="flex justify-between items-center font-sans">
                 <span className="text-barber-secondary font-bold text-xl">R$ 40,00</span>
                 <button className="bg-barber-primary text-white px-4 py-2 rounded hover:bg-opacity-90 transition-all duration-300" tabIndex="0">
                   Agendar

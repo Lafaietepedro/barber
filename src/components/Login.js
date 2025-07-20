@@ -107,11 +107,7 @@ export default function Login({ onLogin }) {
             </button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-gray-600">
-            <p>Credenciais de demonstração:</p>
-            <p><strong>Usuário:</strong> admin</p>
-            <p><strong>Senha:</strong> barber123</p>
-          </div>
+          
         </div>
       </div>
     </section>
