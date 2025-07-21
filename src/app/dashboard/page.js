@@ -92,7 +92,12 @@ export default function DashboardPage() {
                 >
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="font-semibold text-lg">{appointment.service}</h3>
+                      <h3 className="font-semibold text-lg">{
+                        appointment.service
+                          .split(' ')
+                          .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                          .join(' ')
+                      }</h3>
                       <p className="text-gray-300">
                         {appointment.date} at {appointment.time}
                       </p>

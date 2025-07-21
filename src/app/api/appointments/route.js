@@ -1,55 +1,14 @@
-import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-
-// Path to the appointments data file
-const dataFilePath = path.join(process.cwd(), 'data', 'appointments.json');
-
-// Ensure data directory exists
-const ensureDataDirectory = () => {
-  const dataDir = path.join(process.cwd(), 'data');
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-  }
-};
-
-// Read appointments from file
-const readAppointments = () => {
-  try {
-    ensureDataDirectory();
-    if (fs.existsSync(dataFilePath)) {
-      const data = fs.readFileSync(dataFilePath, 'utf8');
-      return JSON.parse(data);
-    }
-    return [];
-  } catch (error) {
-    console.error('Error reading appointments:', error);
-    return [];
-  }
-};
-
-// Write appointments to file
-const writeAppointments = (appointments) => {
-  try {
-    ensureDataDirectory();
-    fs.writeFileSync(dataFilePath, JSON.stringify(appointments, null, 2));
-    return true;
-  } catch (error) {
-    console.error('Error writing appointments:', error);
-    return false;
-  }
-};
+import clientPromise from '@/lib/mongodb';
 
 // GET - Retrieve all appointments
 export async function GET() {
   try {
-    const appointments = readAppointments();
-    return NextResponse.json({ appointments });
+    const client = await clientPromise;
+    const db = client.db('barber');
+    const appointments = await db.collection('appointments').find({}).toArray();
+    return new Response(JSON.stringify({ appointments }), { status: 200 });
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to fetch appointments' },
-      { status: 500 }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to fetch appointments' }), { status: 500 });
   }
 }
 
@@ -61,15 +20,11 @@ export async function POST(request) {
 
     // Validate required fields
     if (!name || !phone || !service || !date || !time) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
+      return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
     }
 
     // Create new appointment
     const newAppointment = {
-      id: Date.now().toString(),
       name,
       phone,
       service,
@@ -80,34 +35,16 @@ export async function POST(request) {
       createdAt: new Date().toISOString(),
     };
 
-    // Read existing appointments
-    const appointments = readAppointments();
-    
-    // Add new appointment
-    appointments.push(newAppointment);
-    
-    // Save to file
-    const success = writeAppointments(appointments);
-    
-    if (!success) {
-      return NextResponse.json(
-        { error: 'Failed to save appointment' },
-        { status: 500 }
-      );
-    }
+    const client = await clientPromise;
+    const db = client.db('barber');
+    const result = await db.collection('appointments').insertOne(newAppointment);
+    newAppointment._id = result.insertedId;
 
-    return NextResponse.json(
-      { 
-        message: 'Appointment created successfully',
-        appointment: newAppointment 
-      },
+    return new Response(
+      JSON.stringify({ message: 'Appointment created successfully', appointment: newAppointment }),
       { status: 201 }
     );
   } catch (error) {
-    console.error('Error creating appointment:', error);
-    return NextResponse.json(
-      { error: 'Failed to create appointment' },
-      { status: 500 }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to create appointment' }), { status: 500 });
   }
 } 

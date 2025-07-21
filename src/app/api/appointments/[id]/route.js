@@ -1,119 +1,73 @@
-import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import clientPromise from '@/lib/mongodb';
+import { ObjectId } from 'mongodb';
 
-// Path to the appointments data file
-const dataFilePath = path.join(process.cwd(), 'data', 'appointments.json');
-
-// Read appointments from file
-const readAppointments = () => {
+function getAppointmentQuery(id) {
+  // Se vier como objeto { $oid: "..." }
+  if (typeof id === 'object' && id !== null && id.$oid) {
+    id = id.$oid;
+  }
+  // Tenta converter para ObjectId, se possível
   try {
-    if (fs.existsSync(dataFilePath)) {
-      const data = fs.readFileSync(dataFilePath, 'utf8');
-      return JSON.parse(data);
+    if (ObjectId.isValid(id)) {
+      return { $or: [ { _id: new ObjectId(id) }, { id: id } ] };
     }
-    return [];
-  } catch (error) {
-    console.error('Error reading appointments:', error);
-    return [];
+  } catch (e) {
+    // Se der erro, ignora e tenta buscar por string
   }
-};
-
-// Write appointments to file
-const writeAppointments = (appointments) => {
-  try {
-    fs.writeFileSync(dataFilePath, JSON.stringify(appointments, null, 2));
-    return true;
-  } catch (error) {
-    console.error('Error writing appointments:', error);
-    return false;
-  }
-};
+  return { id: id };
+}
 
 // PUT - Update appointment status
-export async function PUT(request, { params }) {
+export async function PUT(request, context) {
   try {
-    const { id } = params;
+    const { id } = await context.params;
     const body = await request.json();
     const { status } = body;
 
     if (!status || !['pending', 'completed', 'cancelled'].includes(status)) {
-      return NextResponse.json(
-        { error: 'Invalid status' },
-        { status: 400 }
-      );
+      return new Response(JSON.stringify({ error: 'Invalid status' }), { status: 400 });
     }
 
-    const appointments = readAppointments();
-    const appointmentIndex = appointments.findIndex(apt => apt.id === id);
-
-    if (appointmentIndex === -1) {
-      return NextResponse.json(
-        { error: 'Appointment not found' },
-        { status: 404 }
-      );
-    }
-
-    // Update appointment status
-    appointments[appointmentIndex].status = status;
-    appointments[appointmentIndex].updatedAt = new Date().toISOString();
-
-    const success = writeAppointments(appointments);
-    
-    if (!success) {
-      return NextResponse.json(
-        { error: 'Failed to update appointment' },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({
-      message: 'Appointment updated successfully',
-      appointment: appointments[appointmentIndex]
-    });
-  } catch (error) {
-    console.error('Error updating appointment:', error);
-    return NextResponse.json(
-      { error: 'Failed to update appointment' },
-      { status: 500 }
+    const client = await clientPromise;
+    const db = client.db('barber');
+    const query = getAppointmentQuery(id);
+    const result = await db.collection('appointments').findOneAndUpdate(
+      query,
+      { $set: { status, updatedAt: new Date().toISOString() } },
+      { returnDocument: 'after' }
     );
+
+    if (!result.value) {
+      return new Response(JSON.stringify({ error: 'Appointment not found' }), { status: 404 });
+    }
+
+    return new Response(
+      JSON.stringify({ message: 'Appointment updated successfully', appointment: result.value }),
+      { status: 200 }
+    );
+  } catch (error) {
+    return new Response(JSON.stringify({ error: 'Failed to update appointment' }), { status: 500 });
   }
 }
 
 // DELETE - Remove appointment
-export async function DELETE(request, { params }) {
+export async function DELETE(request, context) {
   try {
-    const { id } = params;
-    const appointments = readAppointments();
-    const appointmentIndex = appointments.findIndex(apt => apt.id === id);
+    const { id } = await context.params;
+    const client = await clientPromise;
+    const db = client.db('barber');
+    const query = getAppointmentQuery(id);
+    const result = await db.collection('appointments').deleteOne(query);
 
-    if (appointmentIndex === -1) {
-      return NextResponse.json(
-        { error: 'Appointment not found' },
-        { status: 404 }
-      );
+    if (result.deletedCount === 0) {
+      return new Response(JSON.stringify({ error: 'Appointment not found' }), { status: 404 });
     }
 
-    // Remove appointment
-    appointments.splice(appointmentIndex, 1);
-
-    const success = writeAppointments(appointments);
-    
-    if (!success) {
-      return NextResponse.json(
-        { error: 'Failed to delete appointment' },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({
-      message: 'Appointment deleted successfully'
-    });
-  } catch (error) {
-    console.error('Error deleting appointment:', error);
-    return NextResponse.json(
-      { error: 'Failed to delete appointment' },
-      { status: 500 }
+    return new Response(
+      JSON.stringify({ message: 'Appointment deleted successfully' }),
+      { status: 200 }
     );
+  } catch (error) {
+    return new Response(JSON.stringify({ error: 'Failed to delete appointment' }), { status: 500 });
   }
 } 

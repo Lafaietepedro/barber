@@ -43,6 +43,7 @@ export default function Appointments() {
 
   // Update appointment status
   const updateAppointmentStatus = async (id, newStatus) => {
+    console.log('Enviando update para id:', id, 'tipo:', typeof id);
     try {
       const response = await fetch(`/api/appointments/${id}`, {
         method: 'PUT',
@@ -52,15 +53,19 @@ export default function Appointments() {
         body: JSON.stringify({ status: newStatus }),
       });
 
-      if (response.ok) {
-        // Refresh appointments
-        fetchAppointments();
-      } else {
-        alert('Erro ao atualizar status do agendamento');
+      const data = await response.json();
+
+      if (response.ok && data && data.message) {
+        await fetchAppointments();
+        // Aqui você pode mostrar um feedback de sucesso se quiser
+      } else if (data?.error) {
+        console.error('Erro ao atualizar agendamento:', data.error);
+        // Removido alert
       }
+      // Removido o else genérico
     } catch (error) {
       console.error('Error updating appointment:', error);
-      alert('Erro ao atualizar agendamento');
+      // Removido alert
     }
   };
 
@@ -79,11 +84,12 @@ export default function Appointments() {
         // Refresh appointments
         fetchAppointments();
       } else {
-        alert('Erro ao excluir agendamento');
+        console.error('Erro ao excluir agendamento');
+        // Removido alert
       }
     } catch (error) {
       console.error('Error deleting appointment:', error);
-      alert('Erro ao excluir agendamento');
+      // Removido alert
     }
   };
 
@@ -333,7 +339,7 @@ export default function Appointments() {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredAppointments.map((appointment) => (
-                    <tr key={appointment.id} className="hover:bg-gray-50">
+                    <tr key={appointment._id || appointment.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div>
                           <div className="text-sm font-medium text-gray-900">{appointment.name}</div>
@@ -341,7 +347,12 @@ export default function Appointments() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {appointment.service}
+                        {appointment.service
+                          ? appointment.service
+                              .split(' ')
+                              .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                              .join(' ')
+                          : ''}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         {formatDate(appointment.date)}
@@ -359,7 +370,7 @@ export default function Appointments() {
                           {appointment.status === 'pending' && (
                             <>
                               <button
-                                onClick={() => updateAppointmentStatus(appointment.id, 'completed')}
+                                onClick={() => updateAppointmentStatus((appointment._id ? appointment._id.toString() : appointment.id), 'completed')}
                                 className="text-green-600 hover:text-green-900"
                                 title="Marcar como concluído"
                               >
@@ -368,7 +379,7 @@ export default function Appointments() {
                                 </svg>
                               </button>
                               <button
-                                onClick={() => updateAppointmentStatus(appointment.id, 'cancelled')}
+                                onClick={() => updateAppointmentStatus((appointment._id ? appointment._id.toString() : appointment.id), 'cancelled')}
                                 className="text-red-600 hover:text-red-900"
                                 title="Cancelar"
                               >
@@ -379,7 +390,7 @@ export default function Appointments() {
                             </>
                           )}
                           <button
-                            onClick={() => deleteAppointment(appointment.id)}
+                            onClick={() => deleteAppointment((appointment._id ? appointment._id.toString() : appointment.id))}
                             className="text-gray-600 hover:text-red-900"
                             title="Excluir"
                           >

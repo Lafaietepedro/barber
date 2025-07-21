@@ -115,10 +115,10 @@ export default function Booking() {
                 tabIndex="0"
               >
                 <option value="">Selecione um serviço</option>
-                <option value="corte">Corte Clássico - R$ 45,00</option>
+                <option value="corte">Corte Clássico - R$ 40,00</option>
                 <option value="barba">Barba Completa - R$ 35,00</option>
-                <option value="combo">Combo Premium - R$ 75,00</option>
-                <option value="fade">Fade com Desenho - R$ 55,00</option>
+                <option value="combo">Combo Premium - R$ 60,00</option>
+                <option value="fade">Fade com Desenho - R$ 50,00</option>
                 <option value="hidratacao">Hidratação Capilar - R$ 40,00</option>
               </select>
             </div>
