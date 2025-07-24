@@ -46,7 +46,7 @@ export default function AppointmentsPage() {
         setFormData(prev => ({ ...prev, time: '' }));
       }
     }
-  }, [formData.date]);
+  }, [formData.date, formData.time]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

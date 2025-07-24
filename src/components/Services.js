@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function Services() {
   return (
     <section id="servicos" className="py-16 bg-white">
@@ -13,7 +15,7 @@ export default function Services() {
           {/* Serviço 1 */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden card opacity-0 animate-fade-in">
             <div className="image-container h-56">
-              <img src="/media/barber-inspects-his-work-of-a-clean-haircut.jpg" alt="Corte de Cabelo" className="w-full h-full object-cover" />
+              <Image src="/media/barber-inspects-his-work-of-a-clean-haircut.jpg" alt="Corte de Cabelo" width={400} height={300} className="w-full h-full object-cover" />
             </div>
             <div className="p-6">
               <h3 className="font-serif text-xl font-bold mb-2">Corte de Cabelo</h3>
@@ -30,7 +32,7 @@ export default function Services() {
           {/* Serviço 2 */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden card opacity-0 animate-fade-in delay-100">
             <div className="image-container h-56">
-              <img src="/media/man-getting-his-beard-trimmed-by-barber.jpg" alt="Barba Completa" className="w-full h-full object-cover" />
+              <Image src="/media/man-getting-his-beard-trimmed-by-barber.jpg" alt="Barba Completa" width={400} height={300} className="w-full h-full object-cover" />
             </div>
             <div className="p-6">
               <h3 className="text-xl font-bold mb-2">Barba Completa</h3>
@@ -47,7 +49,7 @@ export default function Services() {
           {/* Serviço 3 */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden card opacity-0 animate-fade-in delay-200">
             <div className="image-container h-56">
-              <img src="/media/barber-adds-final-touches-to-a-haircut.jpg" alt="Combo Corte + Barba" className="w-full h-full object-cover" />
+              <Image src="/media/barber-adds-final-touches-to-a-haircut.jpg" alt="Combo Corte + Barba" width={400} height={300} className="w-full h-full object-cover" />
             </div>
             <div className="p-6">
               <h3 className="text-xl font-bold mb-2">Combo Corte + Barba</h3>
