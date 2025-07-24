@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 export const initLogo3D = (container) => {
   const width = container.clientWidth;
   const height = container.clientHeight;
