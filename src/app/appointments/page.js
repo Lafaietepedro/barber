@@ -2,8 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { auth } from '@/lib/auth';
-import { appointments } from '@/lib/appointments';
+
+// Mocks para ambiente de demonstração
+const auth = {
+  getCurrentUser: () => ({ name: 'Usuário Demo', email: 'demo@barber.com' })
+};
+
+const appointments = {
+  getAvailableSlots: (date) => [
+    '09:00', '10:00', '11:00', '14:00', '15:00', '16:00'
+  ],
+  bookAppointment: (data) => true // sempre retorna sucesso
+};
 
 export default function AppointmentsPage() {
   const [user, setUser] = useState(null);
