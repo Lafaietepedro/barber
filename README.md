@@ -16,6 +16,7 @@ O BarberElite é um website completo para barbearias, oferecendo agendamento onl
 - **JavaScript (ES6+)**
 - **CSS Animations**
 - **SVG**
+- **MongoDB Atlas**
 
 ## 📁 Estrutura do Projeto
 
