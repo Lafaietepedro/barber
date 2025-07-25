@@ -102,7 +102,7 @@ MIT
 
 ## 👨‍💻 Autor
 
-Desenvolvido por [Seu Nome Aqui].
-- [LinkedIn](https://www.linkedin.com/) | [GitHub](https://github.com/)
+Desenvolvido por Lafaiete Almeida.
+- [LinkedIn](www.linkedin.com/in/lafaiete-almeida-dev) | [GitHub](https://github.com/Lafaietepedro)
 
 Entre em contato para dúvidas ou oportunidades!
