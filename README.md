@@ -93,15 +93,9 @@ Acesse [http://localhost:3000](http://localhost:3000) no navegador.
 3. Commit e push das alterações
 4. Abra um Pull Request
 
-## 📄 Licença
-
-MIT
-
----
-
 ## 👨‍💻 Autor
 
 Desenvolvido por [Seu Nome Aqui].
-- [LinkedIn](https://www.linkedin.com/) | [GitHub](https://github.com/)
+- [LinkedIn](www.linkedin.com/in/lafaiete-almeida-dev) | [GitHub](https://github.com/Lafaietepedro)
 
 Entre em contato para dúvidas ou oportunidades!
