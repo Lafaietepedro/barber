@@ -95,7 +95,7 @@ Acesse [http://localhost:3000](http://localhost:3000) no navegador.
 
 ## 👨‍💻 Autor
 
-Desenvolvido por [Seu Nome Aqui].
-- [LinkedIn](www.linkedin.com/in/lafaiete-almeida-dev) | [GitHub](https://github.com/Lafaietepedro)
+Desenvolvido por Lafaiete Almeida.
+- [LinkedIn](https://www.linkedin.com/in/lafaiete-almeida-dev) | [GitHub](https://github.com/Lafaietepedro)
 
 Entre em contato para dúvidas ou oportunidades!
