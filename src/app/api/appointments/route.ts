@@ -1,4 +1,5 @@
 import clientPromise, { MONGODB_DB } from '@/lib/mongodb';
+import { isAdminAuthenticated } from '@/lib/adminSession';
 import { ObjectId } from 'mongodb';
 
 interface Appointment {
@@ -13,7 +14,11 @@ interface Appointment {
   createdAt: string;
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  if (!isAdminAuthenticated(request)) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  }
+
   try {
     const client = await clientPromise;
     const db = client.db(MONGODB_DB);

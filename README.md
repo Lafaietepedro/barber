@@ -1,101 +1,73 @@
-# BarberElite - Website para Barbearia
+[Leia em Português (Brasil)](./README.pt-BR.md)
 
-Este projeto foi idealizado para demonstrar, na prática, a capacidade de desenvolver soluções web modernas para problemas reais de pequenos negócios. O BarberElite simula um website completo para uma barbearia, com funcionalidades como agendamento online, galeria de trabalhos, painel administrativo e recursos de acessibilidade, utilizando tecnologias atuais do mercado.
+# BarberElite
+Full-stack barbershop scheduling web app built as a portfolio project.
 
-> **Nota:** Todas as informações, imagens e dados utilizados neste projeto são fictícios e têm caráter ilustrativo, não estando vinculados a nenhuma barbearia real.
+**Live demo:** https://barberelite.vercel.app
 
-## ✨ Visão Geral
+![Dashboard](./public/screenshot.png)
 
-O BarberElite é um website completo para barbearias, oferecendo agendamento online, galeria de trabalhos, painel administrativo e recursos de acessibilidade. O projeto foi pensado para proporcionar uma experiência moderna, responsiva e acessível, tanto para clientes quanto para administradores.
+## Tech Stack
 
-## 🚀 Tecnologias Utilizadas
+| Technology | Usage |
+| --- | --- |
+| Next.js 15 (App Router) | Frontend and API routes |
+| React 19 | UI rendering and component model |
+| TypeScript | Static typing across app and server code |
+| Tailwind CSS | Styling and responsive layout |
+| MongoDB (native driver, no Mongoose) | Appointment and admin user persistence |
+| Vercel | Production deployment |
 
-- **Next.js 14**
-- **React**
-- **Tailwind CSS**
-- **JavaScript (ES6+)**
-- **CSS Animations**
-- **SVG**
+## Features
 
-## 📁 Estrutura do Projeto
+- Public booking form that stores new appointments in MongoDB.
+- Admin dashboard with appointment list, status filters, and stats cards.
+- Admin actions to mark appointments as `completed` or `cancelled`, and to delete appointments.
+- Authentication via custom `httpOnly` cookie session (no third-party auth library).
+- Session token created in `src/lib/adminSession.ts`, set on login route, and validated server-side on admin appointment API routes.
+- Protected admin API routes return `401 Unauthorized` when no valid session cookie is present.
 
-```
-barber/
-├── src/
-│   ├── app/           # Páginas e rotas
-│   ├── components/    # Componentes reutilizáveis
-│   ├── lib/           # Utilitários e integrações
-│   └── styles/        # Estilos globais e animações
-├── public/            # Arquivos estáticos
-├── package.json       # Dependências
-├── tailwind.config.js # Configuração Tailwind
-└── README.md          # Documentação
-```
+## Architecture Overview
 
-## 🎨 Design & Acessibilidade
+- Uses Next.js App Router for pages and server endpoints under `src/app`.
+- Uses server-side cookie authentication for admin endpoints, avoiding client-managed tokens.
+- Uses MongoDB connection pooling through a global client promise in `src/lib/mongodb.ts` to reuse connections efficiently.
 
-- **Cores:**
-  - Primária: `#1a1a1a`
-  - Secundária: `#c8a97e`
-  - Escura: `#000000`
-- **Tipografia:** Serif para títulos, Sans para textos
-- **Responsivo:** Mobile-first, adaptável a todos os dispositivos
-- **Acessibilidade:**
-  - Navegação por teclado
-  - Alto contraste
-  - Tamanho de fonte ajustável
-  - Foco visível
-  - Labels semânticos
+## Run Locally
 
-## 📱 Funcionalidades Principais
-
-- **Página Inicial:**
-  - Hero section com chamada para ação
-  - Apresentação dos serviços
-  - Galeria de trabalhos
-  - Equipe de profissionais
-  - Formulário de contato
-- **Agendamento Online:**
-  - Seleção de serviços e horários
-  - Confirmação via modal
-  - Agendamento por comando de voz (simulado)
-- **Dashboard Gerencial:**
-  - Estatísticas e gráficos de agendamentos
-  - Lista de agendamentos recentes
-- **Acessibilidade:**
-  - Alto contraste, navegação por teclado, foco visível
-
-## 🛠️ Como Executar Localmente
-
-### Pré-requisitos
-- Node.js 18+
-- npm ou yarn
-
-### Instalação
-
+1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Lafaietepedro/barber
 cd barber
+```
+2. Install dependencies:
+```bash
 npm install
+```
+3. Create `.env.local`:
+```bash
+MONGODB_URI=your_mongodb_connection_string
+MONGODB_DB=barber
+```
+4. Start the development server:
+```bash
 npm run dev
 ```
-Acesse [http://localhost:3000](http://localhost:3000) no navegador.
+5. Open `http://localhost:3000`.
 
-## 📦 Deploy
+## Project Structure
 
-- **Vercel (Recomendado):** Deploy automático conectando o repositório.
-- **Netlify:** Build com `npm run build` e publicar a pasta `out`.
+```text
+src/
+  app/          # App Router pages and API routes
+  components/   # UI and admin components
+  lib/          # MongoDB and auth session utilities
+  styles/       # Global styles and animations
+data/           # Local seed/sample data
+public/         # Static assets
+```
 
-## 🤝 Contribuição
+## Author
 
-1. Fork este repositório
-2. Crie uma branch para sua feature
-3. Commit e push das alterações
-4. Abra um Pull Request
-
-## 👨‍💻 Autor
-
-Desenvolvido por Lafaiete Almeida.
-- [LinkedIn](https://www.linkedin.com/in/lafaiete-almeida-dev) | [GitHub](https://github.com/Lafaietepedro)
-
-Entre em contato para dúvidas ou oportunidades!
+- [LinkedIn](https://www.linkedin.com/in/lafaiete-almeida-dev)
+- [GitHub](https://github.com/Lafaietepedro)

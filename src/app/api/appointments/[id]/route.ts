@@ -1,4 +1,5 @@
 import clientPromise, { MONGODB_DB } from '@/lib/mongodb';
+import { isAdminAuthenticated } from '@/lib/adminSession';
 import { ObjectId } from 'mongodb';
 
 interface AppointmentQuery {
@@ -6,9 +7,6 @@ interface AppointmentQuery {
 }
 
 function getAppointmentQuery(id: string): AppointmentQuery {
-  if (typeof id === 'object' && id !== null && (id as { $oid?: string }).$oid) {
-    id = (id as { $oid: string }).$oid;
-  }
   try {
     if (ObjectId.isValid(id)) {
       return { $or: [{ _id: new ObjectId(id) }, { id: id }] };
@@ -20,6 +18,10 @@ function getAppointmentQuery(id: string): AppointmentQuery {
 }
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  if (!isAdminAuthenticated(request)) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  }
+
   try {
     const { id } = await params;
     const body = await request.json();
@@ -38,12 +40,17 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
       { returnDocument: 'after' }
     );
 
-    if (!result || !result.value) {
+    const updatedAppointment =
+      result && typeof result === 'object' && 'value' in result
+        ? (result as { value: unknown }).value
+        : result;
+
+    if (!updatedAppointment) {
       return new Response(JSON.stringify({ error: 'Appointment not found' }), { status: 404 });
     }
 
     return new Response(
-      JSON.stringify({ message: 'Appointment updated successfully', appointment: result.value }),
+      JSON.stringify({ message: 'Appointment updated successfully', appointment: updatedAppointment }),
       { status: 200 }
     );
   } catch (error) {
@@ -52,6 +59,10 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
 }
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  if (!isAdminAuthenticated(request)) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  }
+
   try {
     const { id } = await params;
     const client = await clientPromise;

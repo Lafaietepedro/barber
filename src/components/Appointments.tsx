@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Login from './Login';
 
 interface Appointment {
-  _id?: string;
-  id: string;
+  _id?: string | { $oid?: string };
+  id?: string;
   name: string;
   phone: string;
   service: string;
@@ -17,7 +17,19 @@ interface Appointment {
 }
 
 function getAppointmentId(appointment: Appointment): string {
-  return appointment._id || appointment.id || '';
+  if (typeof appointment._id === 'string') {
+    return appointment._id;
+  }
+
+  if (
+    appointment._id &&
+    typeof appointment._id === 'object' &&
+    typeof appointment._id.$oid === 'string'
+  ) {
+    return appointment._id.$oid;
+  }
+
+  return appointment.id || '';
 }
 
 export default function Appointments() {
@@ -27,22 +39,19 @@ export default function Appointments() {
   const [filter, setFilter] = useState('all');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const adminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
-    setIsLoggedIn(adminLoggedIn);
-    
-    if (adminLoggedIn) {
-      fetchAppointments();
-    } else {
-      setLoading(false);
-    }
+  const clearClientAuth = useCallback(() => {
+    localStorage.removeItem('adminLoggedIn');
+    setIsLoggedIn(false);
   }, []);
 
-  const fetchAppointments = async () => {
+  const fetchAppointments = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch('/api/appointments');
-      if (response.ok) {
+      if (response.status === 401) {
+        clearClientAuth();
+        setError('Sessão expirada. Faça login novamente.');
+      } else if (response.ok) {
         const data = await response.json();
         setAppointments(data.appointments || []);
       } else {
@@ -54,7 +63,18 @@ export default function Appointments() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [clearClientAuth]);
+
+  useEffect(() => {
+    const adminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+    setIsLoggedIn(adminLoggedIn);
+
+    if (adminLoggedIn) {
+      fetchAppointments();
+    } else {
+      setLoading(false);
+    }
+  }, [fetchAppointments]);
 
   const updateAppointmentStatus = async (id: string, newStatus: string) => {
     console.log('Enviando update para id:', id, 'tipo:', typeof id);
@@ -66,6 +86,11 @@ export default function Appointments() {
         },
         body: JSON.stringify({ status: newStatus }),
       });
+
+      if (response.status === 401) {
+        clearClientAuth();
+        return;
+      }
 
       const data = await response.json();
 
@@ -89,7 +114,9 @@ export default function Appointments() {
         method: 'DELETE',
       });
 
-      if (response.ok) {
+      if (response.status === 401) {
+        clearClientAuth();
+      } else if (response.ok) {
         fetchAppointments();
       } else {
         console.error('Erro ao excluir agendamento');
@@ -99,9 +126,14 @@ export default function Appointments() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminLoggedIn');
-    setIsLoggedIn(false);
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch (err) {
+      console.error('Error during logout:', err);
+    } finally {
+      clearClientAuth();
+    }
   };
 
   const handleLogin = () => {
@@ -334,7 +366,7 @@ export default function Appointments() {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredAppointments.map((appointment) => (
-                    <tr key={appointment._id || appointment.id} className="hover:bg-gray-50">
+                    <tr key={getAppointmentId(appointment)} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div>
                           <div className="text-sm font-medium text-gray-900">{appointment.name}</div>

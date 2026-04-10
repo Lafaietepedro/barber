@@ -1,4 +1,5 @@
 import clientPromise, { MONGODB_DB } from '@/lib/mongodb';
+import { buildAdminSessionCookie, createAdminSessionToken } from '@/lib/adminSession';
 
 export async function POST(req: Request) {
   try {
@@ -13,7 +14,14 @@ export async function POST(req: Request) {
     const user = await db.collection('users').findOne({ username, password });
 
     if (user) {
-      return new Response(JSON.stringify({ success: true }), { status: 200 });
+      const sessionToken = createAdminSessionToken(username);
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Set-Cookie': buildAdminSessionCookie(sessionToken),
+        },
+      });
     }
 
     return new Response(JSON.stringify({ success: false, message: 'Invalid credentials' }), { status: 401 });
