@@ -1,26 +1,27 @@
-import clientPromise from '@/lib/mongodb';
+import clientPromise, { MONGODB_DB } from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 
-function getAppointmentQuery(id) {
-  // Se vier como objeto { $oid: "..." }
-  if (typeof id === 'object' && id !== null && id.$oid) {
-    id = id.$oid;
-  }
-  // Tenta converter para ObjectId, se possível
-  try {
-    if (ObjectId.isValid(id)) {
-      return { $or: [ { _id: new ObjectId(id) }, { id: id } ] };
-    }
-  } catch (e) {
-    // Se der erro, ignora e tenta buscar por string
-  }
-  return { id: id };
+interface AppointmentQuery {
+  $or: Array<{ _id?: ObjectId } | { id?: string }>;
 }
 
-// PUT - Update appointment status
-export async function PUT(request, context) {
+function getAppointmentQuery(id: string): AppointmentQuery {
+  if (typeof id === 'object' && id !== null && (id as { $oid?: string }).$oid) {
+    id = (id as { $oid: string }).$oid;
+  }
   try {
-    const { id } = await context.params;
+    if (ObjectId.isValid(id)) {
+      return { $or: [{ _id: new ObjectId(id) }, { id: id }] };
+    }
+  } catch (e) {
+    // ignore
+  }
+  return { $or: [{ id: id }] };
+}
+
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params;
     const body = await request.json();
     const { status } = body;
 
@@ -29,7 +30,7 @@ export async function PUT(request, context) {
     }
 
     const client = await clientPromise;
-    const db = client.db('barber');
+    const db = client.db(MONGODB_DB);
     const query = getAppointmentQuery(id);
     const result = await db.collection('appointments').findOneAndUpdate(
       query,
@@ -37,7 +38,7 @@ export async function PUT(request, context) {
       { returnDocument: 'after' }
     );
 
-    if (!result.value) {
+    if (!result || !result.value) {
       return new Response(JSON.stringify({ error: 'Appointment not found' }), { status: 404 });
     }
 
@@ -50,12 +51,11 @@ export async function PUT(request, context) {
   }
 }
 
-// DELETE - Remove appointment
-export async function DELETE(request, context) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = await context.params;
+    const { id } = await params;
     const client = await clientPromise;
-    const db = client.db('barber');
+    const db = client.db(MONGODB_DB);
     const query = getAppointmentQuery(id);
     const result = await db.collection('appointments').deleteOne(query);
 
@@ -70,4 +70,4 @@ export async function DELETE(request, context) {
   } catch (error) {
     return new Response(JSON.stringify({ error: 'Failed to delete appointment' }), { status: 500 });
   }
-} 
+}

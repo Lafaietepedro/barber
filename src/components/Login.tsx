@@ -1,16 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 
-export default function Login({ onLogin }) {
-  const [credentials, setCredentials] = useState({
+interface LoginProps {
+  onLogin: () => void;
+}
+
+interface Credentials {
+  username: string;
+  password: string;
+}
+
+export default function Login({ onLogin }: LoginProps) {
+  const [credentials, setCredentials] = useState<Credentials>({
     username: '',
     password: ''
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -27,7 +36,6 @@ export default function Login({ onLogin }) {
       const data = await response.json();
 
       if (data.success) {
-        // Store admin session (in production, use proper session management)
         localStorage.setItem('adminLoggedIn', 'true');
         onLogin();
       } else {
@@ -40,7 +48,7 @@ export default function Login({ onLogin }) {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCredentials(prev => ({
       ...prev,
@@ -75,7 +83,7 @@ export default function Login({ onLogin }) {
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-barber-secondary"
                 required
-                tabIndex="0"
+                tabIndex={0}
               />
             </div>
 
@@ -91,7 +99,7 @@ export default function Login({ onLogin }) {
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-barber-secondary"
                 required
-                tabIndex="0"
+                tabIndex={0}
               />
             </div>
 
@@ -101,15 +109,13 @@ export default function Login({ onLogin }) {
               className={`w-full bg-barber-secondary text-barber-primary px-6 py-3 rounded-md font-medium transition-all duration-300 ${
                 loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-opacity-90'
               }`}
-              tabIndex="0"
+              tabIndex={0}
             >
               {loading ? 'Entrando...' : 'Entrar'}
             </button>
           </form>
-
-          
         </div>
       </div>
     </section>
   );
-} 
+}

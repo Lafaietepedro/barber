@@ -8,7 +8,6 @@ export default function Header() {
   const [highContrast, setHighContrast] = useState(false);
   const [fontSize, setFontSize] = useState(100);
 
-  // Verificar preferências salvas
   useEffect(() => {
     if (localStorage.getItem('high-contrast') === 'true') {
       setHighContrast(true);
@@ -22,7 +21,6 @@ export default function Header() {
     }
   }, []);
 
-  // Atualizar alto contraste
   useEffect(() => {
     if (highContrast) {
       document.documentElement.classList.add('high-contrast');
@@ -33,7 +31,6 @@ export default function Header() {
     }
   }, [highContrast]);
 
-  // Atualizar tamanho da fonte
   useEffect(() => {
     document.body.style.fontSize = `${fontSize}%`;
     localStorage.setItem('font-size', fontSize.toString());
@@ -50,11 +47,11 @@ export default function Header() {
         </div>
 
         <nav className="font-sans flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-          <a href="#inicio" className="hover:text-barber-secondary transition-colors duration-300" tabIndex="0">Início</a>
-          <a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex="0">Serviços</a>
-          <a href="#galeria" className="hover:text-barber-secondary transition-colors duration-300" tabIndex="0">Galeria</a>
-          <a href="#agendamento" className="hover:text-barber-secondary transition-colors duration-300" tabIndex="0">Agendamento</a>
-          <a href="#contato" className="hover:text-barber-secondary transition-colors duration-300" tabIndex="0">Contato</a>
+          <a href="#inicio" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Início</a>
+          <a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Serviços</a>
+          <a href="#galeria" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Galeria</a>
+          <a href="#agendamento" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Agendamento</a>
+          <a href="#contato" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Contato</a>
         </nav>
       </div>
     </header>

@@ -3,14 +3,30 @@
 import { useState, useEffect } from 'react';
 import Login from './Login';
 
+interface Appointment {
+  _id?: string;
+  id: string;
+  name: string;
+  phone: string;
+  service: string;
+  date: string;
+  time: string;
+  status: string;
+  notes?: string;
+  createdAt?: string;
+}
+
+function getAppointmentId(appointment: Appointment): string {
+  return appointment._id || appointment.id || '';
+}
+
 export default function Appointments() {
-  const [appointments, setAppointments] = useState([]);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [filter, setFilter] = useState('all'); // all, pending, completed, cancelled
+  const [error, setError] = useState<string | null>(null);
+  const [filter, setFilter] = useState('all');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check if admin is logged in
   useEffect(() => {
     const adminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
     setIsLoggedIn(adminLoggedIn);
@@ -22,7 +38,6 @@ export default function Appointments() {
     }
   }, []);
 
-  // Fetch appointments from API
   const fetchAppointments = async () => {
     try {
       setLoading(true);
@@ -33,16 +48,15 @@ export default function Appointments() {
       } else {
         setError('Erro ao carregar agendamentos');
       }
-    } catch (error) {
-      console.error('Error fetching appointments:', error);
+    } catch (err) {
+      console.error('Error fetching appointments:', err);
       setError('Erro ao carregar agendamentos');
     } finally {
       setLoading(false);
     }
   };
 
-  // Update appointment status
-  const updateAppointmentStatus = async (id, newStatus) => {
+  const updateAppointmentStatus = async (id: string, newStatus: string) => {
     console.log('Enviando update para id:', id, 'tipo:', typeof id);
     try {
       const response = await fetch(`/api/appointments/${id}`, {
@@ -57,20 +71,15 @@ export default function Appointments() {
 
       if (response.ok && data && data.message) {
         await fetchAppointments();
-        // Aqui você pode mostrar um feedback de sucesso se quiser
       } else if (data?.error) {
         console.error('Erro ao atualizar agendamento:', data.error);
-        // Removido alert
       }
-      // Removido o else genérico
-    } catch (error) {
-      console.error('Error updating appointment:', error);
-      // Removido alert
+    } catch (err) {
+      console.error('Error updating appointment:', err);
     }
   };
 
-  // Delete appointment
-  const deleteAppointment = async (id) => {
+  const deleteAppointment = async (id: string) => {
     if (!confirm('Tem certeza que deseja excluir este agendamento?')) {
       return;
     }
@@ -81,42 +90,34 @@ export default function Appointments() {
       });
 
       if (response.ok) {
-        // Refresh appointments
         fetchAppointments();
       } else {
         console.error('Erro ao excluir agendamento');
-        // Removido alert
       }
-    } catch (error) {
-      console.error('Error deleting appointment:', error);
-      // Removido alert
+    } catch (err) {
+      console.error('Error deleting appointment:', err);
     }
   };
 
-  // Handle logout
   const handleLogout = () => {
     localStorage.removeItem('adminLoggedIn');
     setIsLoggedIn(false);
   };
 
-  // Handle successful login
   const handleLogin = () => {
     setIsLoggedIn(true);
     fetchAppointments();
   };
 
-  // If not logged in, show login form
   if (!isLoggedIn) {
     return <Login onLogin={handleLogin} />;
   }
 
-  // Filter appointments based on status
   const filteredAppointments = appointments.filter(appointment => {
     if (filter === 'all') return true;
     return appointment.status === filter;
   });
 
-  // Calculate statistics
   const stats = {
     total: appointments.length,
     pending: appointments.filter(apt => apt.status === 'pending').length,
@@ -124,14 +125,12 @@ export default function Appointments() {
     cancelled: appointments.filter(apt => apt.status === 'cancelled').length,
   };
 
-  // Format date for display
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('pt-BR');
   };
 
-  // Get status color
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending':
         return 'bg-yellow-100 text-yellow-800';
@@ -144,8 +143,7 @@ export default function Appointments() {
     }
   };
 
-  // Get status text
-  const getStatusText = (status) => {
+  const getStatusText = (status: string) => {
     switch (status) {
       case 'pending':
         return 'Pendente';
@@ -174,25 +172,24 @@ export default function Appointments() {
   return (
     <section id="agendamentos" className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h2 className="text-3xl font-serif font-bold mb-2 text-center">
+        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div className="text-center md:text-left">
+            <h2 className="text-3xl font-serif font-bold mb-2">
               <span className="text-barber-secondary">Agendamentos</span>
             </h2>
-            <p className="text-gray-600 text-center max-w-2xl mx-auto">
+            <p className="text-gray-600 max-w-2xl mx-auto md:mx-0">
               Área administrativa - Gerencie todos os agendamentos da barbearia.
             </p>
           </div>
           <button
             onClick={handleLogout}
-            className="bg-red-600 text-white px-4 py-2 rounded-md font-medium hover:bg-red-700 transition-all duration-300"
-            tabIndex="0"
+            className="self-center md:self-auto bg-red-600 text-white px-4 py-2 rounded-md font-medium hover:bg-red-700 transition-all duration-300"
+            tabIndex={0}
           >
             Sair
           </button>
         </div>
 
-        {/* Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500">
             <div className="flex items-center">
@@ -251,7 +248,6 @@ export default function Appointments() {
           </div>
         </div>
 
-        {/* Filter */}
         <div className="mb-6">
           <div className="flex flex-wrap gap-2">
             <button
@@ -297,7 +293,6 @@ export default function Appointments() {
           </div>
         </div>
 
-        {/* Appointments List */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           {error && (
             <div className="p-4 bg-red-100 text-red-700">
@@ -370,7 +365,7 @@ export default function Appointments() {
                           {appointment.status === 'pending' && (
                             <>
                               <button
-                                onClick={() => updateAppointmentStatus((appointment._id ? appointment._id.toString() : appointment.id), 'completed')}
+                                onClick={() => updateAppointmentStatus(getAppointmentId(appointment), 'completed')}
                                 className="text-green-600 hover:text-green-900"
                                 title="Marcar como concluído"
                               >
@@ -379,7 +374,7 @@ export default function Appointments() {
                                 </svg>
                               </button>
                               <button
-                                onClick={() => updateAppointmentStatus((appointment._id ? appointment._id.toString() : appointment.id), 'cancelled')}
+                                onClick={() => updateAppointmentStatus(getAppointmentId(appointment), 'cancelled')}
                                 className="text-red-600 hover:text-red-900"
                                 title="Cancelar"
                               >
@@ -390,7 +385,7 @@ export default function Appointments() {
                             </>
                           )}
                           <button
-                            onClick={() => deleteAppointment((appointment._id ? appointment._id.toString() : appointment.id))}
+                            onClick={() => deleteAppointment(getAppointmentId(appointment))}
                             className="text-gray-600 hover:text-red-900"
                             title="Excluir"
                           >
@@ -410,4 +405,4 @@ export default function Appointments() {
       </div>
     </section>
   );
-} 
+}

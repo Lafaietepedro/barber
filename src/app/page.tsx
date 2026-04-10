@@ -1,7 +1,7 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
-import Appointments from '@/components/Appointments';
+import AppointmentsComponent from '@/components/Appointments';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
@@ -22,7 +22,7 @@ export default function Home() {
       <Suspense fallback={<div className="text-center py-12">Carregando agendamento...</div>}>
         <Booking />
       </Suspense>
-      <Appointments />
+      <AppointmentsComponent />
       <Contact />
       <Footer />
       <BackToTop />

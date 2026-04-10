@@ -1,7 +1,14 @@
 import React from 'react'
 
+interface GalleryImage {
+  id: number;
+  title: string;
+  description: string;
+  src: string;
+}
+
 export default function Gallery () {
-  const galleryImages = [
+  const galleryImages: GalleryImage[] = [
     {
       id: 1,
       title: 'Corte Clássico',

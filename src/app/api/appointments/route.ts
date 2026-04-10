@@ -1,10 +1,22 @@
-import clientPromise from '@/lib/mongodb';
+import clientPromise, { MONGODB_DB } from '@/lib/mongodb';
+import { ObjectId } from 'mongodb';
 
-// GET - Retrieve all appointments
+interface Appointment {
+  _id?: ObjectId;
+  name: string;
+  phone: string;
+  service: string;
+  date: string;
+  time: string;
+  notes: string;
+  status: string;
+  createdAt: string;
+}
+
 export async function GET() {
   try {
     const client = await clientPromise;
-    const db = client.db('barber');
+    const db = client.db(MONGODB_DB);
     const appointments = await db.collection('appointments').find({}).toArray();
     return new Response(JSON.stringify({ appointments }), { status: 200 });
   } catch (error) {
@@ -12,19 +24,16 @@ export async function GET() {
   }
 }
 
-// POST - Create new appointment
-export async function POST(request) {
+export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, phone, service, date, time, notes } = body;
 
-    // Validate required fields
     if (!name || !phone || !service || !date || !time) {
       return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
     }
 
-    // Create new appointment
-    const newAppointment = {
+    const newAppointment: Appointment = {
       name,
       phone,
       service,
@@ -36,7 +45,7 @@ export async function POST(request) {
     };
 
     const client = await clientPromise;
-    const db = client.db('barber');
+    const db = client.db(MONGODB_DB);
     const result = await db.collection('appointments').insertOne(newAppointment);
     newAppointment._id = result.insertedId;
 
@@ -47,4 +56,4 @@ export async function POST(request) {
   } catch (error) {
     return new Response(JSON.stringify({ error: 'Failed to create appointment' }), { status: 500 });
   }
-} 
+}

@@ -1,6 +1,10 @@
 'use client';
 
-export default function ConfirmationModal({ onClose }) {
+interface ConfirmationModalProps {
+  onClose: () => void;
+}
+
+export default function ConfirmationModal({ onClose }: ConfirmationModalProps) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
       <div className="bg-white rounded-lg p-8 max-w-md w-full">

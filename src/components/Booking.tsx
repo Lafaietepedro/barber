@@ -1,12 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import ConfirmationModal from './ConfirmationModal';
+
+interface FormData {
+  name: string;
+  phone: string;
+  service: string;
+  date: string;
+  time: string;
+  notes: string;
+}
 
 export default function Booking() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
     service: '',
@@ -15,7 +24,7 @@ export default function Booking() {
     notes: ''
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -23,7 +32,7 @@ export default function Booking() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -40,7 +49,6 @@ export default function Booking() {
         const result = await response.json();
         console.log('Appointment saved:', result);
         setIsModalOpen(true);
-        // Reset form
         setFormData({
           name: '',
           phone: '',
@@ -73,7 +81,6 @@ export default function Booking() {
 
         <div className="bg-white text-barber-primary rounded-lg shadow-xl p-8 max-w-3xl mx-auto">
           <form id="booking-form" className="space-y-6" onSubmit={handleSubmit}>
-            {/* Formulário de agendamento */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Nome Completo</label>
@@ -85,7 +92,7 @@ export default function Booking() {
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-barber-secondary" 
                   required 
-                  tabIndex="0" 
+                  tabIndex={0} 
                 />
               </div>
               <div>
@@ -98,7 +105,7 @@ export default function Booking() {
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-barber-secondary" 
                   required 
-                  tabIndex="0" 
+                  tabIndex={0} 
                 />
               </div>
             </div>
@@ -112,7 +119,7 @@ export default function Booking() {
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-barber-secondary" 
                 required 
-                tabIndex="0"
+                tabIndex={0}
               >
                 <option value="">Selecione um serviço</option>
                 <option value="corte">Corte Clássico - R$ 40,00</option>
@@ -134,7 +141,7 @@ export default function Booking() {
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-barber-secondary" 
                   required 
-                  tabIndex="0" 
+                  tabIndex={0} 
                 />
               </div>
               <div>
@@ -146,7 +153,7 @@ export default function Booking() {
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-barber-secondary" 
                   required 
-                  tabIndex="0"
+                  tabIndex={0}
                 >
                   <option value="">Selecione um horário</option>
                   <option value="09:00">09:00</option>
@@ -169,9 +176,9 @@ export default function Booking() {
                 name="notes" 
                 value={formData.notes}
                 onChange={handleInputChange}
-                rows="3" 
+                rows={3} 
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-barber-secondary" 
-                tabIndex="0"
+                tabIndex={0}
               ></textarea>
             </div>
 
@@ -182,7 +189,7 @@ export default function Booking() {
                 className={`bg-barber-secondary text-barber-primary px-8 py-3 rounded-md font-medium transition-all duration-300 ${
                   isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-opacity-90'
                 }`} 
-                tabIndex="0"
+                tabIndex={0}
               >
                 {isLoading ? 'Salvando...' : 'Confirmar Agendamento'}
               </button>

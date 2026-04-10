@@ -1,29 +1,40 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 
-// Mocks para ambiente de demonstração
+interface User {
+  name: string;
+  email: string;
+}
+
+interface FormData {
+  date: string;
+  time: string;
+  service: string;
+  barber: string;
+}
+
 const auth = {
-  getCurrentUser: () => ({ name: 'Usuário Demo', email: 'demo@barber.com' })
+  getCurrentUser: (): User | null => ({ name: 'Usuário Demo', email: 'demo@barber.com' })
 };
 
 const appointments = {
-  getAvailableSlots: (date) => [
+  getAvailableSlots: (_date: string): string[] => [
     '09:00', '10:00', '11:00', '14:00', '15:00', '16:00'
   ],
-  bookAppointment: (data) => true // sempre retorna sucesso
+  bookAppointment: (_data: FormData): boolean => true
 };
 
 export default function AppointmentsPage() {
-  const [user, setUser] = useState(null);
-  const [formData, setFormData] = useState({
+  const [user, setUser] = useState<User | null>(null);
+  const [formData, setFormData] = useState<FormData>({
     date: '',
     time: '',
     service: '',
     barber: ''
   });
-  const [availableSlots, setAvailableSlots] = useState([]);
+  const [availableSlots, setAvailableSlots] = useState<string[]>([]);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
@@ -41,14 +52,13 @@ export default function AppointmentsPage() {
     if (formData.date) {
       const slots = appointments.getAvailableSlots(formData.date);
       setAvailableSlots(slots);
-      // Reset time if current selection is not available
       if (formData.time && !slots.includes(formData.time)) {
         setFormData(prev => ({ ...prev, time: '' }));
       }
     }
   }, [formData.date, formData.time]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess('');
@@ -60,8 +70,8 @@ export default function AppointmentsPage() {
 
     const appointmentData = {
       ...formData,
-      userEmail: user.email,
-      userName: user.name
+      userEmail: user?.email,
+      userName: user?.name
     };
 
     if (appointments.bookAppointment(appointmentData)) {
@@ -75,7 +85,7 @@ export default function AppointmentsPage() {
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -207,4 +217,4 @@ export default function AppointmentsPage() {
       </div>
     </div>
   );
-} 
+}

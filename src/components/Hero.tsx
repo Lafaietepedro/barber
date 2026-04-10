@@ -22,7 +22,6 @@ export default function Hero() {
 
   return (
     <section id="inicio" className="relative bg-barber-primary text-white">
-      {/* Carousel background images */}
       <div className="absolute inset-0">
         {carouselImages.map((src, idx) => (
           <img
@@ -45,10 +44,10 @@ export default function Hero() {
           Transforme seu visual com os melhores profissionais da cidade. Experiência premium em um ambiente sofisticado.
         </p>
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 opacity-0 animate-fade-in delay-200 font-sans">
-          <a href="#servicos" className="bg-barber-secondary text-barber-primary px-6 py-3 rounded-md font-medium hover:bg-opacity-90 transition-all duration-300 text-center" tabIndex="0">
+          <a href="#servicos" className="bg-barber-secondary text-barber-primary px-6 py-3 rounded-md font-medium hover:bg-opacity-90 transition-all duration-300 text-center" tabIndex={0}>
             Nossos Serviços
           </a>
-          <a href="#agendamento" className="border-2 border-barber-secondary text-white px-6 py-3 rounded-md font-medium hover:bg-barber-secondary hover:bg-opacity-20 transition-all duration-300 text-center" tabIndex="0">
+          <a href="#agendamento" className="border-2 border-barber-secondary text-white px-6 py-3 rounded-md font-medium hover:bg-barber-secondary hover:bg-opacity-20 transition-all duration-300 text-center" tabIndex={0}>
             Agendar Agora
           </a>
         </div>
