@@ -40,17 +40,12 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
       { returnDocument: 'after' }
     );
 
-    const updatedAppointment =
-      result && typeof result === 'object' && 'value' in result
-        ? (result as { value: unknown }).value
-        : result;
-
-    if (!updatedAppointment) {
+    if (!result) {
       return new Response(JSON.stringify({ error: 'Appointment not found' }), { status: 404 });
     }
 
     return new Response(
-      JSON.stringify({ message: 'Appointment updated successfully', appointment: updatedAppointment }),
+      JSON.stringify({ message: 'Appointment updated successfully', appointment: result }),
       { status: 200 }
     );
   } catch (error) {
