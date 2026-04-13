@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import ConfirmationModal from './ConfirmationModal';
+import { bookingConfig } from '@/config/booking';
 
 interface FormData {
   name: string;
@@ -122,11 +123,11 @@ export default function Booking() {
                 tabIndex={0}
               >
                 <option value="">Selecione um serviço</option>
-                <option value="corte">Corte Clássico - R$ 40,00</option>
-                <option value="barba">Barba Completa - R$ 35,00</option>
-                <option value="combo">Combo Premium - R$ 60,00</option>
-                <option value="fade">Fade com Desenho - R$ 50,00</option>
-                <option value="hidratacao">Hidratação Capilar - R$ 40,00</option>
+                {bookingConfig.services.map((service) => (
+                  <option key={service.id} value={service.id}>
+                    {service.label} - R$ {service.price.toFixed(2).replace('.', ',')}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -156,15 +157,11 @@ export default function Booking() {
                   tabIndex={0}
                 >
                   <option value="">Selecione um horário</option>
-                  <option value="09:00">09:00</option>
-                  <option value="10:00">10:00</option>
-                  <option value="11:00">11:00</option>
-                  <option value="13:00">13:00</option>
-                  <option value="14:00">14:00</option>
-                  <option value="15:00">15:00</option>
-                  <option value="16:00">16:00</option>
-                  <option value="17:00">17:00</option>
-                  <option value="18:00">18:00</option>
+                  {bookingConfig.timeSlots.map((slot) => (
+                    <option key={slot} value={slot}>
+                      {slot}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

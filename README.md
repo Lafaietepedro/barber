@@ -1,73 +1,103 @@
-[Leia em Português (Brasil)](./README.pt-BR.md)
+[Leia em Português](./README.pt-BR.md)
 
-# BarberElite
-Full-stack barbershop scheduling web app built as a portfolio project.
+# BarberElite — Booking & Admin Template
+
+A production-ready Next.js 15 template for service-based businesses. Includes a public booking system, a protected admin dashboard, and a custom authentication layer — fully configured and ready to deploy on Vercel in minutes.
 
 **Live demo:** https://barberelite.vercel.app
 
-![Dashboard](./public/screenshot.png)
+![Dashboard Preview](./public/screenshot.png)
+
+## What You Get
+
+- **Public booking form** — customers book appointments by selecting service, date, and time; data saved directly to MongoDB
+- **Admin dashboard** — view, filter, and manage all appointments with status controls (pending / completed / cancelled)
+- **Custom auth** — httpOnly cookie session with HMAC-signed tokens and server-side validation; no third-party auth library required
+- **Config-first architecture** — change business name, services, prices, time slots, and contact info from a single config file
+- **TypeScript throughout** — strict typing across all components, API routes, and server utilities
+- **One-click deploy** — optimized for Vercel; just add your environment variables and go
 
 ## Tech Stack
 
 | Technology | Usage |
-| --- | --- |
+|---|---|
 | Next.js 15 (App Router) | Frontend and API routes |
-| React 19 | UI rendering and component model |
-| TypeScript | Static typing across app and server code |
+| React 19 | UI components |
+| TypeScript | Static typing |
 | Tailwind CSS | Styling and responsive layout |
-| MongoDB (native driver, no Mongoose) | Appointment and admin user persistence |
-| Vercel | Production deployment |
+| MongoDB (native driver) | Data persistence |
+| bcryptjs | Password hashing |
+| Vercel | Deployment |
 
-## Features
+## Customize in 15 Minutes
 
-- Public booking form that stores new appointments in MongoDB.
-- Admin dashboard with appointment list, status filters, and stats cards.
-- Admin actions to mark appointments as `completed` or `cancelled`, and to delete appointments.
-- Authentication via custom `httpOnly` cookie session (no third-party auth library).
-- Session token created in `src/lib/adminSession.ts`, set on login route, and validated server-side on admin appointment API routes.
-- Protected admin API routes return `401 Unauthorized` when no valid session cookie is present.
+All business-specific configuration lives in `src/config/`:
 
-## Architecture Overview
+**`site.ts`** — business name, contact info, address, social links
 
-- Uses Next.js App Router for pages and server endpoints under `src/app`.
-- Uses server-side cookie authentication for admin endpoints, avoiding client-managed tokens.
-- Uses MongoDB connection pooling through a global client promise in `src/lib/mongodb.ts` to reuse connections efficiently.
+**`booking.ts`** — services, prices, and available time slots
 
-## Run Locally
+**`auth.ts`** — cookie name and session duration
 
-1. Clone the repository:
+No need to touch the components or API routes.
+
+## Getting Started
+
+### 1. Clone and install
+
 ```bash
-git clone https://github.com/Lafaietepedro/barber
+git clone https://github.com/Lafaietepedro/barber.git
 cd barber
-```
-2. Install dependencies:
-```bash
 npm install
 ```
-3. Create `.env.local`:
+
+### 2. Configure environment variables
+
+Copy `.env.example` to `.env.local` and fill in your values:
+
 ```bash
-MONGODB_URI=your_mongodb_connection_string
-MONGODB_DB=barber
+cp .env.example .env.local
 ```
-4. Start the development server:
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/
+MONGODB_DB=your-database-name
+ADMIN_SESSION_SECRET=your-secret-here  # generate: openssl rand -base64 32
+
+### 3. Create the admin user
+
+```bash
+npm run seed:admin
+```
+
+### 4. Update your config files
+
+Edit `src/config/site.ts`, `src/config/booking.ts`, and `src/config/auth.ts` with your business details.
+
+### 5. Run locally
+
 ```bash
 npm run dev
 ```
-5. Open `http://localhost:3000`.
+
+Open [http://localhost:3000](http://localhost:3000).
 
 ## Project Structure
-
-```text
 src/
-  app/          # App Router pages and API routes
-  components/   # UI and admin components
-  lib/          # MongoDB and auth session utilities
-  styles/       # Global styles and animations
-data/           # Local seed/sample data
-public/         # Static assets
-```
+app/           # App Router pages and API routes
+components/    # UI and admin components
+config/        # Business configuration (site, booking, auth)
+lib/           # MongoDB connection and session utilities
+scripts/
+seed-admin.ts  # Admin user creation script
+public/          # Static assets
+.env.example     # Environment variable reference
+
+## Deploy on Vercel
+
+1. Push to GitHub
+2. Import the repository on [Vercel](https://vercel.com)
+3. Add environment variables in Project Settings
+4. Deploy
 
 ## Author
 
-- [LinkedIn](https://www.linkedin.com/in/lafaiete-almeida-dev)
-- [GitHub](https://github.com/Lafaietepedro)
+Built by [Lafaiete Almeida](https://linkedin.com/in/lafaiete-almeida-dev) — [GitHub](https://github.com/Lafaietepedro)

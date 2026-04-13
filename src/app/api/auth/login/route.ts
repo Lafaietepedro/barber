@@ -1,5 +1,7 @@
+import bcrypt from 'bcryptjs';
 import clientPromise, { MONGODB_DB } from '@/lib/mongodb';
 import { buildAdminSessionCookie, createAdminSessionToken } from '@/lib/adminSession';
+import { authConfig } from '@/config/auth';
 
 export async function POST(req: Request) {
   try {
@@ -11,9 +13,9 @@ export async function POST(req: Request) {
 
     const client = await clientPromise;
     const db = client.db(MONGODB_DB);
-    const user = await db.collection('users').findOne({ username, password });
+    const user = await db.collection(authConfig.usersCollection).findOne({ username });
 
-    if (user) {
+    if (user && await bcrypt.compare(password, user.password as string)) {
       const sessionToken = createAdminSessionToken(username);
       return new Response(JSON.stringify({ success: true }), {
         status: 200,

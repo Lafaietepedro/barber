@@ -1,7 +1,8 @@
 import { createHmac, timingSafeEqual } from 'crypto';
+import { authConfig } from '@/config/auth';
 
-export const ADMIN_SESSION_COOKIE = 'barber_admin_session';
-const SESSION_MAX_AGE_SECONDS = 60 * 60 * 8;
+export const ADMIN_SESSION_COOKIE = authConfig.cookieName;
+const SESSION_MAX_AGE_SECONDS = authConfig.sessionMaxAgeSeconds;
 
 interface AdminSessionPayload {
   exp: number;
