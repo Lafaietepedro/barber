@@ -16,7 +16,7 @@ interface FormData {
 }
 
 const auth = {
-  getCurrentUser: (): User | null => ({ name: 'Usuário Demo', email: 'demo@barber.com' })
+  getCurrentUser: (): User | null => ({ name: 'Demo User', email: 'demo@barber.com' })
 };
 
 const appointments = {

@@ -60,11 +60,11 @@ export default function Booking() {
         });
       } else {
         const error = await response.json();
-        alert(`Erro ao agendar: ${error.error}`);
+        alert(`Booking error: ${error.error}`);
       }
     } catch (error) {
       console.error('Error saving appointment:', error);
-      alert('Erro ao salvar agendamento. Tente novamente.');
+      alert('Failed to save booking. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -74,17 +74,17 @@ export default function Booking() {
     <section id="agendamento" className="py-16 bg-barber-primary text-white">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-serif font-bold mb-2 text-center">
-          Faça seu <span className="text-barber-secondary">Agendamento</span>
+          Make Your <span className="text-barber-secondary">Booking</span>
         </h2>
         <p className="font-sans text-gray-300 text-center mb-12 max-w-2xl mx-auto">
-          Escolha o serviço, data e horário de sua preferência e garanta seu atendimento premium.
+          Choose your preferred service, date, and time to secure your premium appointment.
         </p>
 
         <div className="bg-white text-barber-primary rounded-lg shadow-xl p-8 max-w-3xl mx-auto">
           <form id="booking-form" className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Nome Completo</label>
+                <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Full Name</label>
                 <input 
                   type="text" 
                   id="name" 
@@ -97,7 +97,7 @@ export default function Booking() {
                 />
               </div>
               <div>
-                <label htmlFor="phone" className="block text-gray-700 font-medium mb-2">Telefone</label>
+                <label htmlFor="phone" className="block text-gray-700 font-medium mb-2">Phone</label>
                 <input 
                   type="tel" 
                   id="phone" 
@@ -112,7 +112,7 @@ export default function Booking() {
             </div>
 
             <div>
-              <label htmlFor="service" className="block text-gray-700 font-medium mb-2">Serviço</label>
+              <label htmlFor="service" className="block text-gray-700 font-medium mb-2">Service</label>
               <select 
                 id="service" 
                 name="service" 
@@ -122,10 +122,10 @@ export default function Booking() {
                 required 
                 tabIndex={0}
               >
-                <option value="">Selecione um serviço</option>
+                <option value="">Select a service</option>
                 {bookingConfig.services.map((service) => (
                   <option key={service.id} value={service.id}>
-                    {service.label} - R$ {service.price.toFixed(2).replace('.', ',')}
+                    {service.label} - ${service.price.toFixed(2)}
                   </option>
                 ))}
               </select>
@@ -133,7 +133,7 @@ export default function Booking() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="date" className="block text-gray-700 font-medium mb-2">Data</label>
+                <label htmlFor="date" className="block text-gray-700 font-medium mb-2">Date</label>
                 <input 
                   type="date" 
                   id="date" 
@@ -146,7 +146,7 @@ export default function Booking() {
                 />
               </div>
               <div>
-                <label htmlFor="time" className="block text-gray-700 font-medium mb-2">Horário</label>
+                <label htmlFor="time" className="block text-gray-700 font-medium mb-2">Time</label>
                 <select 
                   id="time" 
                   name="time" 
@@ -156,7 +156,7 @@ export default function Booking() {
                   required 
                   tabIndex={0}
                 >
-                  <option value="">Selecione um horário</option>
+                  <option value="">Select a time</option>
                   {bookingConfig.timeSlots.map((slot) => (
                     <option key={slot} value={slot}>
                       {slot}
@@ -167,7 +167,7 @@ export default function Booking() {
             </div>
 
             <div>
-              <label htmlFor="notes" className="block text-gray-700 font-medium mb-2">Observações (opcional)</label>
+              <label htmlFor="notes" className="block text-gray-700 font-medium mb-2">Notes (optional)</label>
               <textarea 
                 id="notes" 
                 name="notes" 
@@ -188,7 +188,7 @@ export default function Booking() {
                 }`} 
                 tabIndex={0}
               >
-                {isLoading ? 'Salvando...' : 'Confirmar Agendamento'}
+                {isLoading ? 'Saving...' : 'Confirm Booking'}
               </button>
             </div>
           </form>

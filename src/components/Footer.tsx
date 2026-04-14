@@ -6,7 +6,7 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-bold mb-4">BarberElite</h3>
             <p className="text-gray-400 mb-4">
-              Barbearia de alto padrão, oferecendo serviços premium com profissionais experientes e ambiente sofisticado.
+              High-end barbershop offering premium services with experienced professionals in a sophisticated atmosphere.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>
@@ -28,37 +28,37 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xl font-bold mb-4">Nossos Serviços</h3>
+            <h3 className="text-xl font-bold mb-4">Our Services</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Corte Clássico</a></li>
-              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Barba Completa</a></li>
-              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Combo Premium</a></li>
-              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Fade com Desenho</a></li>
-              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Hidratação Capilar</a></li>
+              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Classic Haircut</a></li>
+              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Full Beard Trim</a></li>
+              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Premium Combo</a></li>
+              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Skin Fade with Design</a></li>
+              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Hair Hydration</a></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xl font-bold mb-4">Links Rápidos</h3>
+            <h3 className="text-xl font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#inicio" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Início</a></li>
-              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Serviços</a></li>
-              <li><a href="#galeria" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Galeria</a></li>
-              <li><a href="#equipe" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Equipe</a></li>
-              <li><a href="#agendamento" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Agendamento</a></li>
-              <li><a href="#contato" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Contato</a></li>
+              <li><a href="#inicio" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Home</a></li>
+              <li><a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Services</a></li>
+              <li><a href="#galeria" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Gallery</a></li>
+              <li><a href="#equipe" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Team</a></li>
+              <li><a href="#agendamento" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Booking</a></li>
+              <li><a href="#contato" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Contact</a></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xl font-bold mb-4">Contato</h3>
+            <h3 className="text-xl font-bold mb-4">Contact</h3>
             <div className="space-y-3 text-gray-400">
               <div className="flex items-start space-x-3">
                 <svg className="w-5 h-5 mt-1 text-barber-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <p>Rua das Barbearias, 123<br />Centro - São Paulo, SP</p>
+                <p>123 Barber Street<br />Downtown - Sao Paulo, SP</p>
               </div>
               <div className="flex items-start space-x-3">
                 <svg className="w-5 h-5 mt-1 text-barber-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,7 +70,7 @@ export default function Footer() {
                 <svg className="w-5 h-5 mt-1 text-barber-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <p>contato@barberelite.com.br</p>
+                <p>contact@barberelite.com</p>
               </div>
             </div>
           </div>
@@ -78,10 +78,10 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 pt-6 mt-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">&copy; 2025 BarberElite. Todos os direitos reservados.</p>
+            <p className="text-gray-400 text-sm mb-4 md:mb-0">&copy; 2025 BarberElite. All rights reserved.</p>
             <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-barber-secondary text-sm transition-colors duration-300" tabIndex={0}>Política de Privacidade</a>
-              <a href="#" className="text-gray-400 hover:text-barber-secondary text-sm transition-colors duration-300" tabIndex={0}>Termos de Uso</a>
+              <a href="#" className="text-gray-400 hover:text-barber-secondary text-sm transition-colors duration-300" tabIndex={0}>Privacy Policy</a>
+              <a href="#" className="text-gray-400 hover:text-barber-secondary text-sm transition-colors duration-300" tabIndex={0}>Terms of Use</a>
               <a href="#" className="text-gray-400 hover:text-barber-secondary text-sm transition-colors duration-300" tabIndex={0}>Cookies</a>
               <a href="#agendamentos" className="text-gray-400 hover:text-barber-secondary text-sm transition-colors duration-300" tabIndex={0}>Admin</a>
             </div>

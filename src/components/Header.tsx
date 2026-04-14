@@ -47,11 +47,11 @@ export default function Header() {
         </div>
 
         <nav className="font-sans flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-          <a href="#inicio" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Início</a>
-          <a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Serviços</a>
-          <a href="#galeria" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Galeria</a>
-          <a href="#agendamento" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Agendamento</a>
-          <a href="#contato" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Contato</a>
+          <a href="#inicio" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Home</a>
+          <a href="#servicos" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Services</a>
+          <a href="#galeria" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Gallery</a>
+          <a href="#agendamento" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Booking</a>
+          <a href="#contato" className="hover:text-barber-secondary transition-colors duration-300" tabIndex={0}>Contact</a>
         </nav>
       </div>
     </header>

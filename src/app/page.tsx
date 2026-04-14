@@ -16,10 +16,10 @@ export default function Home() {
       <Header />
       <Hero />
       <Services />
-      <Suspense fallback={<div className="text-center py-12">Carregando galeria...</div>}>
+      <Suspense fallback={<div className="text-center py-12">Loading gallery...</div>}>
         <Gallery />
       </Suspense>
-      <Suspense fallback={<div className="text-center py-12">Carregando agendamento...</div>}>
+      <Suspense fallback={<div className="text-center py-12">Loading booking...</div>}>
         <Booking />
       </Suspense>
       <AppointmentsComponent />

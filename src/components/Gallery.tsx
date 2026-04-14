@@ -11,38 +11,38 @@ export default function Gallery () {
   const galleryImages: GalleryImage[] = [
     {
       id: 1,
-      title: 'Corte Clássico',
-      description: 'Tradição e elegância',
+      title: 'Classic Haircut',
+      description: 'Tradition and elegance',
       src: '/media/man-gets-his-hair-trimmed-at-the-barbershop.jpg'
     },
     {
       id: 2,
-      title: 'Barba Estilizada',
-      description: 'Precisão nos detalhes',
+      title: 'Styled Beard',
+      description: 'Precision in every detail',
       src: '/media/barber-shaves-side-of-persons-head.jpg'
     },
     {
       id: 3,
-      title: 'Fade Moderno',
-      description: 'Estilo contemporâneo',
+      title: 'Modern Fade',
+      description: 'Contemporary style',
       src: '/media/customer-getting-fade-at-barbershop.jpg'
     },
     {
       id: 4,
-      title: 'Tratamento Facial',
-      description: 'Cuidados especiais',
+      title: 'Facial Treatment',
+      description: 'Specialized care',
       src: '/media/barber-sprays-water-on-customers-head.jpg'
     },
     {
       id: 5,
-      title: 'Combo Premium',
-      description: 'Experiência completa',
+      title: 'Premium Combo',
+      description: 'Complete experience',
       src: '/media/man-with-beard-getting-a-trim.jpg'
     },
     {
       id: 6,
-      title: 'Acabamento Perfeito',
-      description: 'Qualidade superior',
+      title: 'Perfect Finish',
+      description: 'Superior quality',
       src: '/media/close-up-of-barber-giving-a-fade.jpg'
     }
   ]
@@ -51,11 +51,10 @@ export default function Gallery () {
     <section id='galeria' className='py-16 bg-gray-50'>
       <div className='container mx-auto px-4'>
         <h2 className='text-3xl font-serif font-bold mb-2 text-center'>
-          Nossa <span className='text-barber-secondary'>Galeria</span>
+          Our <span className='text-barber-secondary'>Gallery</span>
         </h2>
         <p className='font-sans text-gray-600 text-center mb-12 max-w-2xl mx-auto'>
-          Conheça alguns dos nossos trabalhos e veja a qualidade dos nossos
-          serviços.
+          Explore some of our work and see the quality of our services.
         </p>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>

@@ -14,13 +14,13 @@ export default function ConfirmationModal({ onClose }: ConfirmationModalProps) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Agendamento Confirmado!</h3>
-          <p className="text-gray-600 mb-6">Seu horário foi reservado com sucesso. Enviaremos uma confirmação por e-mail.</p>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">Booking Confirmed!</h3>
+          <p className="text-gray-600 mb-6">Your appointment was successfully reserved. We&apos;ll send a confirmation by email.</p>
           <button 
             onClick={onClose}
             className="w-full bg-barber-secondary text-barber-primary py-2 rounded hover:bg-opacity-90 transition-all duration-300"
           >
-            Fechar
+            Close
           </button>
         </div>
       </div>

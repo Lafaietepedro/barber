@@ -42,8 +42,8 @@ export default function Dashboard() {
     setRecentAppointments([
       {
         id: 1,
-        clientName: "João Silva",
-        service: "Corte Clássico",
+        clientName: "John Silva",
+        service: "Classic Haircut",
         date: "2024-01-15",
         time: "14:00",
         status: "completed"
@@ -51,7 +51,7 @@ export default function Dashboard() {
       {
         id: 2,
         clientName: "Carlos Santos",
-        service: "Barba Completa",
+        service: "Full Beard Trim",
         date: "2024-01-15",
         time: "15:30",
         status: "pending"
@@ -59,7 +59,7 @@ export default function Dashboard() {
       {
         id: 3,
         clientName: "Pedro Costa",
-        service: "Combo Premium",
+        service: "Premium Combo",
         date: "2024-01-15",
         time: "16:00",
         status: "pending"
@@ -71,10 +71,10 @@ export default function Dashboard() {
     <section id="dashboard" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-serif font-bold mb-2 text-center md:text-left">
-          <span className="text-barber-secondary">Dashboard</span> Gerencial
+          <span className="text-barber-secondary">Management</span> Dashboard
         </h2>
         <p className="text-gray-600 text-center md:text-left mb-12 max-w-2xl mx-auto md:mx-0">
-          Acompanhe o desempenho da barbearia e gerencie seus agendamentos.
+          Track barbershop performance and manage your appointments.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
@@ -86,7 +86,7 @@ export default function Dashboard() {
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Agendamentos</p>
+                <p className="text-sm font-medium text-gray-600">Total Appointments</p>
                 <p className="text-2xl font-bold text-gray-900">{stats.totalAppointments}</p>
               </div>
             </div>
@@ -100,7 +100,7 @@ export default function Dashboard() {
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Concluídos</p>
+                <p className="text-sm font-medium text-gray-600">Completed</p>
                 <p className="text-2xl font-bold text-gray-900">{stats.completedAppointments}</p>
               </div>
             </div>
@@ -114,7 +114,7 @@ export default function Dashboard() {
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Pendentes</p>
+                <p className="text-sm font-medium text-gray-600">Pending</p>
                 <p className="text-2xl font-bold text-gray-900">{stats.pendingAppointments}</p>
               </div>
             </div>
@@ -128,8 +128,8 @@ export default function Dashboard() {
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Receita Total</p>
-                <p className="text-2xl font-bold text-gray-900">R$ {stats.totalRevenue.toLocaleString()}</p>
+                <p className="text-sm font-medium text-gray-600">Total Revenue</p>
+                <p className="text-2xl font-bold text-gray-900">${stats.totalRevenue.toLocaleString()}</p>
               </div>
             </div>
           </div>
@@ -142,7 +142,7 @@ export default function Dashboard() {
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Avaliação</p>
+                <p className="text-sm font-medium text-gray-600">Rating</p>
                 <p className="text-2xl font-bold text-gray-900">{stats.averageRating}/5.0</p>
               </div>
             </div>
@@ -151,26 +151,26 @@ export default function Dashboard() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-lg font-bold mb-4 text-gray-900">Agendamentos por Dia</h3>
+            <h3 className="text-lg font-bold mb-4 text-gray-900">Appointments by Day</h3>
             <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
               <div className="text-center">
                 <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
                 </svg>
-                <p className="text-gray-600">Gráfico de agendamentos será carregado aqui</p>
+                <p className="text-gray-600">Appointments chart will load here</p>
               </div>
             </div>
           </div>
 
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-lg font-bold mb-4 text-gray-900">Agendamentos Recentes</h3>
+            <h3 className="text-lg font-bold mb-4 text-gray-900">Recent Appointments</h3>
             <div className="space-y-4">
               {recentAppointments.map((appointment) => (
                 <div key={appointment.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                   <div>
                     <p className="font-medium text-gray-900">{appointment.clientName}</p>
                     <p className="text-sm text-gray-600">{appointment.service}</p>
-                    <p className="text-xs text-gray-500">{appointment.date} às {appointment.time}</p>
+                    <p className="text-xs text-gray-500">{appointment.date} at {appointment.time}</p>
                   </div>
                   <div className="flex items-center space-x-2">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -178,7 +178,7 @@ export default function Dashboard() {
                         ? 'bg-green-100 text-green-800' 
                         : 'bg-yellow-100 text-yellow-800'
                     }`}>
-                      {appointment.status === 'completed' ? 'Concluído' : 'Pendente'}
+                      {appointment.status === 'completed' ? 'Completed' : 'Pending'}
                     </span>
                     <button className="text-barber-secondary hover:text-barber-primary transition-colors duration-300" tabIndex={0}>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -193,27 +193,27 @@ export default function Dashboard() {
         </div>
 
         <div className="mt-12">
-          <h3 className="text-lg font-bold mb-6 text-gray-900">Ações Rápidas</h3>
+          <h3 className="text-lg font-bold mb-6 text-gray-900">Quick Actions</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <button className="bg-barber-secondary text-barber-primary px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center space-x-2" tabIndex={0}>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
-              <span>Novo Agendamento</span>
+              <span>New Appointment</span>
             </button>
             
             <button className="bg-barber-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center space-x-2" tabIndex={0}>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
-              <span>Relatórios</span>
+              <span>Reports</span>
             </button>
             
             <button className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center space-x-2" tabIndex={0}>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-              <span>Gerenciar Clientes</span>
+              <span>Manage Clients</span>
             </button>
             
             <button className="bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center space-x-2" tabIndex={0}>
@@ -221,7 +221,7 @@ export default function Dashboard() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span>Configurações</span>
+              <span>Settings</span>
             </button>
           </div>
         </div>

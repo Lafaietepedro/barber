@@ -20,7 +20,7 @@ export default function Contact() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+    alert('Message sent successfully! We will contact you soon.');
     setFormData({ name: '', email: '', phone: '', message: '' });
   };
 
@@ -35,16 +35,16 @@ export default function Contact() {
     <section id="contato" className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-serif font-bold mb-2 text-center">
-          Entre em <span className="text-barber-secondary">Contato</span>
+          Get in <span className="text-barber-secondary">Touch</span>
         </h2>
         <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-          Estamos aqui para atender você. Entre em contato conosco para agendar seu horário ou tirar dúvidas.
+          We&apos;re here to help. Contact us to book your appointment or ask any questions.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="space-y-8">
             <div>
-              <h3 className="text-xl font-bold mb-6 text-barber-primary">Informações de Contato</h3>
+              <h3 className="text-xl font-bold mb-6 text-barber-primary">Contact Information</h3>
               
               <div className="space-y-4">
                 <div className="flex items-start space-x-4">
@@ -55,8 +55,8 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Endereço</h4>
-                    <p className="text-gray-600">Rua das Barbearias, 123<br />Centro - São Paulo, SP<br />CEP: 01234-567</p>
+                    <h4 className="font-semibold text-gray-900">Address</h4>
+                    <p className="text-gray-600">123 Barber Street<br />Downtown - Sao Paulo, SP<br />ZIP: 01234-567</p>
                   </div>
                 </div>
 
@@ -67,7 +67,7 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Telefone</h4>
+                    <h4 className="font-semibold text-gray-900">Phone</h4>
                     <p className="text-gray-600">(11) 99999-9999</p>
                     <p className="text-gray-600">(11) 88888-8888</p>
                   </div>
@@ -81,8 +81,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Email</h4>
-                    <p className="text-gray-600">contato@barberelite.com.br</p>
-                    <p className="text-gray-600">agendamento@barberelite.com.br</p>
+                    <p className="text-gray-600">contact@barberelite.com</p>
+                    <p className="text-gray-600">booking@barberelite.com</p>
                   </div>
                 </div>
 
@@ -93,17 +93,17 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Horário de Funcionamento</h4>
-                    <p className="text-gray-600">Segunda a Sexta: 9h às 19h</p>
-                    <p className="text-gray-600">Sábado: 9h às 17h</p>
-                    <p className="text-gray-600">Domingo: Fechado</p>
+                    <h4 className="font-semibold text-gray-900">Business Hours</h4>
+                    <p className="text-gray-600">Monday to Friday: 9 AM to 7 PM</p>
+                    <p className="text-gray-600">Saturday: 9 AM to 5 PM</p>
+                    <p className="text-gray-600">Sunday: Closed</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div>
-              <h3 className="text-xl font-bold mb-4 text-barber-primary">Siga-nos</h3>
+              <h3 className="text-xl font-bold mb-4 text-barber-primary">Follow Us</h3>
               <div className="flex space-x-4">
                 <a href="#" className="bg-barber-primary text-white p-3 rounded-full hover:bg-opacity-90 transition-all duration-300" tabIndex={0}>
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -125,11 +125,11 @@ export default function Contact() {
           </div>
 
           <div className="bg-white rounded-lg shadow-lg p-8">
-            <h3 className="text-xl font-bold mb-6 text-barber-primary">Envie uma Mensagem</h3>
+            <h3 className="text-xl font-bold mb-6 text-barber-primary">Send a Message</h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Nome Completo</label>
+                <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Full Name</label>
                 <input
                   type="text"
                   id="name"
@@ -157,7 +157,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-gray-700 font-medium mb-2">Telefone</label>
+                <label htmlFor="phone" className="block text-gray-700 font-medium mb-2">Phone</label>
                 <input
                   type="tel"
                   id="phone"
@@ -170,7 +170,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Mensagem</label>
+                <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Message</label>
                 <textarea
                   id="message"
                   name="message"
@@ -188,17 +188,17 @@ export default function Contact() {
                 className="w-full bg-barber-secondary text-barber-primary px-6 py-3 rounded-md font-medium hover:bg-opacity-90 transition-all duration-300"
                 tabIndex={0}
               >
-                Enviar Mensagem
+                Send Message
               </button>
             </form>
           </div>
         </div>
 
         <div className="mt-16">
-          <h3 className="text-xl font-bold mb-6 text-center text-barber-primary">Nossa Localização</h3>
+          <h3 className="text-xl font-bold mb-6 text-center text-barber-primary">Our Location</h3>
           <div className="w-full h-64 rounded-lg overflow-hidden shadow-lg">
             <iframe
-              src="https://www.google.com/maps?q=Av.+Exemplo,+1000,+São+Paulo,+SP&output=embed"
+              src="https://www.google.com/maps?q=Example+Avenue,+1000,+Sao+Paulo,+SP&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}

@@ -1,15 +1,15 @@
 export const siteConfig = {
   name: 'BarberElite',
-  tagline: 'Estilo e Precisão em Cada Corte',
-  description: 'Barbearia de alto padrão com serviços premium',
+  tagline: 'Style and Precision in Every Cut',
+  description: 'High-end barbershop with premium services',
   contact: {
     phone: ['(11) 99999-9999', '(11) 88888-8888'],
-    email: ['contato@barberelite.com.br', 'agendamento@barberelite.com.br'],
-    address: 'Rua das Barbearias, 123 — Centro, São Paulo, SP',
+    email: ['contact@barberelite.com', 'booking@barberelite.com'],
+    address: '123 Barber Street — Downtown, Sao Paulo, SP',
     hours: {
-      weekdays: '9h às 19h',
-      saturday: '9h às 17h',
-      sunday: 'Fechado',
+      weekdays: '9 AM to 7 PM',
+      saturday: '9 AM to 5 PM',
+      sunday: 'Closed',
     },
   },
   social: {

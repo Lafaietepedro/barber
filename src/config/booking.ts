@@ -1,10 +1,10 @@
 export const bookingConfig = {
   services: [
-    { id: 'corte', label: 'Corte Clássico', price: 40 },
-    { id: 'barba', label: 'Barba Completa', price: 35 },
-    { id: 'combo', label: 'Combo Premium', price: 60 },
-    { id: 'fade', label: 'Fade com Desenho', price: 50 },
-    { id: 'hidratacao', label: 'Hidratação Capilar', price: 40 },
+    { id: 'corte', label: 'Classic Haircut', price: 40 },
+    { id: 'barba', label: 'Full Beard Trim', price: 35 },
+    { id: 'combo', label: 'Premium Combo', price: 60 },
+    { id: 'fade', label: 'Skin Fade with Design', price: 50 },
+    { id: 'hidratacao', label: 'Hair Hydration', price: 40 },
   ],
   timeSlots: [
     '09:00', '10:00', '11:00',

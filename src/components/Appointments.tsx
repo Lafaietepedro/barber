@@ -50,16 +50,16 @@ export default function Appointments() {
       const response = await fetch('/api/appointments');
       if (response.status === 401) {
         clearClientAuth();
-        setError('Sessão expirada. Faça login novamente.');
+        setError('Session expired. Please sign in again.');
       } else if (response.ok) {
         const data = await response.json();
         setAppointments(data.appointments || []);
       } else {
-        setError('Erro ao carregar agendamentos');
+        setError('Failed to load appointments');
       }
     } catch (err) {
       console.error('Error fetching appointments:', err);
-      setError('Erro ao carregar agendamentos');
+      setError('Failed to load appointments');
     } finally {
       setLoading(false);
     }
@@ -77,7 +77,7 @@ export default function Appointments() {
   }, [fetchAppointments]);
 
   const updateAppointmentStatus = async (id: string, newStatus: string) => {
-    console.log('Enviando update para id:', id, 'tipo:', typeof id);
+    console.log('Sending update for id:', id, 'type:', typeof id);
     try {
       const response = await fetch(`/api/appointments/${id}`, {
         method: 'PUT',
@@ -97,7 +97,7 @@ export default function Appointments() {
       if (response.ok && data && data.message) {
         await fetchAppointments();
       } else if (data?.error) {
-        console.error('Erro ao atualizar agendamento:', data.error);
+        console.error('Failed to update appointment:', data.error);
       }
     } catch (err) {
       console.error('Error updating appointment:', err);
@@ -105,7 +105,7 @@ export default function Appointments() {
   };
 
   const deleteAppointment = async (id: string) => {
-    if (!confirm('Tem certeza que deseja excluir este agendamento?')) {
+    if (!confirm('Are you sure you want to delete this appointment?')) {
       return;
     }
 
@@ -119,7 +119,7 @@ export default function Appointments() {
       } else if (response.ok) {
         fetchAppointments();
       } else {
-        console.error('Erro ao excluir agendamento');
+        console.error('Failed to delete appointment');
       }
     } catch (err) {
       console.error('Error deleting appointment:', err);
@@ -178,11 +178,11 @@ export default function Appointments() {
   const getStatusText = (status: string) => {
     switch (status) {
       case 'pending':
-        return 'Pendente';
+        return 'Pending';
       case 'completed':
-        return 'Concluído';
+        return 'Completed';
       case 'cancelled':
-        return 'Cancelado';
+        return 'Cancelled';
       default:
         return status;
     }
@@ -194,7 +194,7 @@ export default function Appointments() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-barber-secondary mx-auto"></div>
-            <p className="mt-4 text-gray-600">Carregando agendamentos...</p>
+            <p className="mt-4 text-gray-600">Loading appointments...</p>
           </div>
         </div>
       </section>
@@ -207,10 +207,10 @@ export default function Appointments() {
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div className="text-center md:text-left">
             <h2 className="text-3xl font-serif font-bold mb-2">
-              <span className="text-barber-secondary">Agendamentos</span>
+              <span className="text-barber-secondary">Appointments</span>
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto md:mx-0">
-              Área administrativa - Gerencie todos os agendamentos da barbearia.
+              Admin area - Manage all barbershop appointments.
             </p>
           </div>
           <button
@@ -218,7 +218,7 @@ export default function Appointments() {
             className="self-center md:self-auto bg-red-600 text-white px-4 py-2 rounded-md font-medium hover:bg-red-700 transition-all duration-300"
             tabIndex={0}
           >
-            Sair
+            Sign Out
           </button>
         </div>
 
@@ -245,7 +245,7 @@ export default function Appointments() {
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Pendentes</p>
+                <p className="text-sm font-medium text-gray-600">Pending</p>
                 <p className="text-2xl font-bold text-gray-900">{stats.pending}</p>
               </div>
             </div>
@@ -259,7 +259,7 @@ export default function Appointments() {
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Concluídos</p>
+                <p className="text-sm font-medium text-gray-600">Completed</p>
                 <p className="text-2xl font-bold text-gray-900">{stats.completed}</p>
               </div>
             </div>
@@ -273,7 +273,7 @@ export default function Appointments() {
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Cancelados</p>
+                <p className="text-sm font-medium text-gray-600">Cancelled</p>
                 <p className="text-2xl font-bold text-gray-900">{stats.cancelled}</p>
               </div>
             </div>
@@ -290,7 +290,7 @@ export default function Appointments() {
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              Todos ({stats.total})
+              All ({stats.total})
             </button>
             <button
               onClick={() => setFilter('pending')}
@@ -300,7 +300,7 @@ export default function Appointments() {
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              Pendentes ({stats.pending})
+              Pending ({stats.pending})
             </button>
             <button
               onClick={() => setFilter('completed')}
@@ -310,7 +310,7 @@ export default function Appointments() {
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              Concluídos ({stats.completed})
+              Completed ({stats.completed})
             </button>
             <button
               onClick={() => setFilter('cancelled')}
@@ -320,7 +320,7 @@ export default function Appointments() {
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              Cancelados ({stats.cancelled})
+              Cancelled ({stats.cancelled})
             </button>
           </div>
         </div>
@@ -337,7 +337,7 @@ export default function Appointments() {
               <svg className="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              <p className="text-gray-600">Nenhum agendamento encontrado.</p>
+              <p className="text-gray-600">No appointments found.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -345,22 +345,22 @@ export default function Appointments() {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Cliente
+                      Client
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Serviço
+                      Service
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Data
+                      Date
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Horário
+                      Time
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Status
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Ações
+                      Actions
                     </th>
                   </tr>
                 </thead>
@@ -399,7 +399,7 @@ export default function Appointments() {
                               <button
                                 onClick={() => updateAppointmentStatus(getAppointmentId(appointment), 'completed')}
                                 className="text-green-600 hover:text-green-900"
-                                title="Marcar como concluído"
+                                title="Mark as completed"
                               >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
@@ -408,7 +408,7 @@ export default function Appointments() {
                               <button
                                 onClick={() => updateAppointmentStatus(getAppointmentId(appointment), 'cancelled')}
                                 className="text-red-600 hover:text-red-900"
-                                title="Cancelar"
+                                title="Cancel"
                               >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -419,7 +419,7 @@ export default function Appointments() {
                           <button
                             onClick={() => deleteAppointment(getAppointmentId(appointment))}
                             className="text-gray-600 hover:text-red-900"
-                            title="Excluir"
+                            title="Delete"
                           >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

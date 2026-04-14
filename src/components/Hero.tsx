@@ -37,18 +37,18 @@ export default function Hero() {
       </div>
       <div className="container mx-auto px-4 py-48 md:py-72 relative z-20 flex flex-col items-center md:items-start">
         <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 text-center md:text-left opacity-0 animate-fade-in">
-          Estilo e Precisão<br />
-          <span className="text-barber-secondary">em Cada Corte</span>
+          Style and Precision<br />
+          <span className="text-barber-secondary">in Every Cut</span>
         </h2>
         <p className="font-sans text-lg md:text-xl mb-8 max-w-lg text-center md:text-left opacity-0 animate-fade-in delay-100">
-          Transforme seu visual com os melhores profissionais da cidade. Experiência premium em um ambiente sofisticado.
+          Transform your look with the city&apos;s top professionals. Premium experience in a sophisticated atmosphere.
         </p>
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 opacity-0 animate-fade-in delay-200 font-sans">
           <a href="#servicos" className="bg-barber-secondary text-barber-primary px-6 py-3 rounded-md font-medium hover:bg-opacity-90 transition-all duration-300 text-center" tabIndex={0}>
-            Nossos Serviços
+            Our Services
           </a>
           <a href="#agendamento" className="border-2 border-barber-secondary text-white px-6 py-3 rounded-md font-medium hover:bg-barber-secondary hover:bg-opacity-20 transition-all duration-300 text-center" tabIndex={0}>
-            Agendar Agora
+            Book Now
           </a>
         </div>
       </div>

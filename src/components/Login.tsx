@@ -42,7 +42,7 @@ export default function Login({ onLogin }: LoginProps) {
         setError(data.message || 'Login failed');
       }
     } catch (error) {
-      setError('Erro de conexão. Tente novamente.');
+      setError('Connection error. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -73,7 +73,7 @@ export default function Login({ onLogin }: LoginProps) {
 
             <div>
               <label htmlFor="username" className="block text-gray-700 font-medium mb-2">
-                Usuário
+                Username
               </label>
               <input
                 type="text"
@@ -89,7 +89,7 @@ export default function Login({ onLogin }: LoginProps) {
 
             <div>
               <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
-                Senha
+                Password
               </label>
               <input
                 type="password"
@@ -111,7 +111,7 @@ export default function Login({ onLogin }: LoginProps) {
               }`}
               tabIndex={0}
             >
-              {loading ? 'Entrando...' : 'Entrar'}
+              {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
         </div>
